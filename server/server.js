@@ -1,39 +1,55 @@
 import express from "express";
 import cors from "cors";
 import router from "./routes/test.js";
-import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import * as dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
 
-// Creates express app and stores in app constant
+// Creates express app and stores in app constant:
 const app = express();
 
-// Routes
-// app.get("/", (req, res) => {
-//   res.json({ mssg: "Welcome to the app" });
-// });
-
-// Listen for requests
-// Put the port number in an env (environment variable) file
-// . env is a package that loads environmewnt variables form an env file into the process.env global varibale]
+// Listen for requests:
 const port = process.env.PORT || 5000;
 
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-app.use(cors());
+const addMiddleWares = () => {
+  app.use(express.json());
+  app.use(
+    express.urlencoded({
+      extended: true,
+    })
+  );
+  const corsOptions = {
+    origin: "http://localhost:3000",
+    credentials: true,
+  };
+  app.use(cors(corsOptions));
+};
 
-app.listen(port, () => {
-  console.log("Server is running on " + port + "port");
-});
+const startServer = () => {
+  app.listen(port, () => {
+    console.log("Server is running on " + port + "port");
+  });
+};
 
-app.use("/api", router);
+const loadRoutes = () => {
+  app.use("/api", router);
+};
 
-async function connectToMongoDb() {
-  await mongoose.connect(process.env.DB);
-  console.log("MongDB is running in port>>", port);
-}
-connectToMongoDb();
+const mongoDBConnection = async () => {
+  try {
+    await mongoose.connect(process.env.DB);
+    console.log("MongDB is running in port>>", port);
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+(async function controller() {
+  await mongoDBConnection();
+  addMiddleWares();
+  loadRoutes();
+  startServer();
+})();
+
+// Need to add () / call at the end to have it auto invoke.
+// Note: Now the fucntion names are not floating around in the global scope anymore
