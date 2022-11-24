@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const blogSchema = new Schema({
+const weekSchema = new Schema({
   week: {
     type: String,
     required: true,
@@ -22,3 +22,5 @@ const blogSchema = new Schema({
 });
 
 const weekModel = mongoose.model("week", weekSchema);
+
+export default weekModel;
