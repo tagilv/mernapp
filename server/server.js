@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
 import weeksRoutes from "./routes/weeksRoutes.js";
+import exercisesRoutes from "./routes/exercisesRoutes.js";
 
 // Creates express app and stores in app constant:
 const app = express();
@@ -35,6 +36,7 @@ const startServer = () => {
 const loadRoutes = () => {
   app.use("/api", router);
   app.use("/api/weeks", weeksRoutes);
+  app.use("/api/exercises", exercisesRoutes);
 };
 
 const mongoDBConnection = async () => {

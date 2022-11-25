@@ -45,6 +45,9 @@ function App() {
       <div className="App">
         {treatmentWeeks &&
           treatmentWeeks.map((treatmentWeek) => {
+            {
+              console.log("treatmentWeek>>>", treatmentWeek);
+            }
             return (
               <TreatmentWeek
                 key={treatmentWeek._id}

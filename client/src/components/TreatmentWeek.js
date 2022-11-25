@@ -3,11 +3,12 @@ import React from "react";
 function TreatmentWeek({ treatmentWeek }) {
   return (
     <>
-      {treatmentWeek.excercises?.map((excercise) => {
+      {treatmentWeek.exercises?.map((excercise) => {
         return (
-          <>
+          <React.Fragment style={{ border: "solid" }}>
+            <p>{treatmentWeek._id}</p>
             <p>{excercise.description}</p>
-          </>
+          </React.Fragment>
         );
       })}
     </>
