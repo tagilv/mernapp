@@ -4,7 +4,6 @@ import { getAllWeeks, getWeeksByWeek } from "../controller/weeksController.js";
 const router = express.Router();
 
 router.get("/all", getAllWeeks);
-
 router.get("/all/:week", getWeeksByWeek);
 
 export default router;

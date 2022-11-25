@@ -7,7 +7,7 @@ const getAllWeeks = async (req, res) => {
     console.log("allWeeks:>>", allWeeks);
     res.status(200).json({
       numberOfWeeks: allWeeks.length,
-      allWeeks,
+      data: allWeeks,
     });
   } catch (error) {
     console.log("error finding all weeks :>>", error);
@@ -23,7 +23,6 @@ const getWeeksByWeek = async (req, res) => {
   console.log("req.query>>", req.query);
   // const { week } = req.params;
   const week = req.params.week;
-
   try {
     const requestedWeek = await weekModel.find({ week: week }).exec();
     console.log("requestedWeek>>", requestedWeek);
