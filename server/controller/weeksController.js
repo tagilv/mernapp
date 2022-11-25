@@ -24,7 +24,10 @@ const getWeeksByWeek = async (req, res) => {
   // const { week } = req.params;
   const week = req.params.week;
   try {
-    const requestedWeek = await weekModel.find({ week: week }).exec();
+    const requestedWeek = await weekModel
+      .find({ week: week })
+      .populate({ path: "exercises", select: ["name", "description"] })
+      .exec();
     console.log("requestedWeek>>", requestedWeek);
     if (requestedWeek.length === 0) {
       res.status(202).json({

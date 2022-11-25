@@ -1,4 +1,4 @@
-import { exerciseModel } from "../model/exercisesModel.js";
+import exerciseModel from "../model/exercisesModel.js";
 
 const getAllExercises = async (req, res) => {
   const allExercises = await exerciseModel.find({});
