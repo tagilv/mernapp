@@ -9,7 +9,7 @@ const weekSchema = new Schema({
     unique: true,
   },
 
-  excercises: [{ type: Schema.Types.ObjectId, ref: "Exercise" }],
+  exercises: [{ type: Schema.Types.ObjectId, ref: "exercise" }],
 });
 
 const weekModel = mongoose.model("week", weekSchema);

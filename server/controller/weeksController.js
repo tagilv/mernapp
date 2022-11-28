@@ -3,7 +3,9 @@ import weekModel from "../model/weeksModel.js";
 
 const getAllWeeks = async (req, res) => {
   try {
-    const allWeeks = await weekModel.find({});
+    const allWeeks = await weekModel
+      .find({})
+      .populate({ path: "exercises", select: ["id", "description"] });
     console.log("allWeeks:>>", allWeeks);
     res.status(200).json({
       numberOfWeeks: allWeeks.length,

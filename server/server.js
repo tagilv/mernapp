@@ -2,11 +2,10 @@ import express from "express";
 import cors from "cors";
 import router from "./routes/test.js";
 import * as dotenv from "dotenv";
-dotenv.config();
 import mongoose from "mongoose";
 import weeksRoutes from "./routes/weeksRoutes.js";
 import exercisesRoutes from "./routes/exercisesRoutes.js";
-
+dotenv.config();
 // Creates express app and stores in app constant:
 const app = express();
 
