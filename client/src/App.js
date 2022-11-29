@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Weeks" element={<Weeks />} />
         <Route path="/Week" element={<Week />} />
+        <Route path="/Weeks/:weekNumber" element={<Week />} />
       </Routes>
     </div>
   );

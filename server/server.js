@@ -5,6 +5,8 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import weeksRoutes from "./routes/weeksRoutes.js";
 import exercisesRoutes from "./routes/exercisesRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
+import cloudinaryConfig from "./config/cloudinary.js";
 dotenv.config();
 // Creates express app and stores in app constant:
 const app = express();
@@ -24,6 +26,7 @@ const addMiddleWares = () => {
     credentials: true,
   };
   app.use(cors(corsOptions));
+  cloudinaryConfig();
 };
 
 const startServer = () => {
@@ -36,6 +39,7 @@ const loadRoutes = () => {
   app.use("/api", router);
   app.use("/api/weeks", weeksRoutes);
   app.use("/api/exercises", exercisesRoutes);
+  app.use("/api/users", usersRoutes);
 };
 
 const mongoDBConnection = async () => {
