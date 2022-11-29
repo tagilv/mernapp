@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function TreatmentWeek({ treatmentWeek }) {
   return (
@@ -6,6 +7,7 @@ function TreatmentWeek({ treatmentWeek }) {
       {treatmentWeek.exercises?.map((excercise) => {
         return (
           <React.Fragment style={{ border: "solid" }}>
+            <Link to={treatmentWeek._id}>Week {treatmentWeek.week}</Link>
             <p>{treatmentWeek._id}</p>
             <p>{excercise.description}</p>
           </React.Fragment>
@@ -16,11 +18,3 @@ function TreatmentWeek({ treatmentWeek }) {
 }
 
 export default TreatmentWeek;
-
-// import React from "react";
-
-// function TreatmentWeek({ treatmentWeek }) {
-//   return <p>{treatmentWeek.week}</p>;
-// }
-
-// export default TreatmentWeek;
