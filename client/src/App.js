@@ -4,6 +4,8 @@ import Home from "./views/Home";
 import Weeks from "./views/Weeks";
 import Week from "./views/Week";
 import Nav from "./components/Nav";
+import Profile from "./views/Profile";
+import Register from "./views/Register";
 
 function App() {
   return (
@@ -11,9 +13,11 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Weeks" element={<Weeks />} />
-        <Route path="/Week" element={<Week />} />
-        <Route path="/Weeks/:weekNumber" element={<Week />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/weeks" element={<Weeks />} />
+        <Route path="/week" element={<Week />} />
+        <Route path="/weeks/:weekNumber" element={<Week />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

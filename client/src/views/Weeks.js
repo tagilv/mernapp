@@ -26,30 +26,25 @@ function Weeks() {
   return (
     <>
       <div className="App">
-        <button onClick={() => setWeek(1)}>Week1</button>
+        {/* <button onClick={() => setWeek(1)}>Week1</button>
         <button onClick={() => setWeek(2)}>Week2</button>
 
-        {week && <SingleWeek treatmentWeek={treatmentWeeks[week]} />}
+        {week && <SingleWeek treatmentWeek={treatmentWeeks[week]} />} */}
 
-        {/* {treatmentWeeks &&
+        {treatmentWeeks &&
           treatmentWeeks.map((treatmentWeek, i) => {
-            {
-              console.log("treatmentWeek>>>", treatmentWeek);
-            }
             return (
-              //  <Link
-              //   to={`${treatmentWeek.week}`}
-              //   state={{ data: treatmentWeek }}
-              // >
-              //   go to week {treatmentWeek.week}
-              // </Link>
-
-              <TreatmentWeek
-                key={treatmentWeek._id}
-                treatmentWeek={treatmentWeek}
-              />
+              <Link
+                to={`${treatmentWeek.week}`}
+                state={{ data: treatmentWeek }}
+              >
+                <TreatmentWeek
+                  key={treatmentWeek._id}
+                  treatmentWeek={treatmentWeek}
+                />
+              </Link>
             );
-          })} */}
+          })}
       </div>
     </>
   );
