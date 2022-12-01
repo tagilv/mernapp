@@ -1,23 +1,15 @@
 import { v2 as cloudinary } from "cloudinary";
 import userModel from "../model/usersModel.js";
 import encryptPassword from "../utils/encryptPassword.js";
+// import isEmailAndPasswordAndUsernameValid from "../utils/validation.js";
 
 const signUp = async (req, res) => {
   console.log("req.body>>", req.body);
   const { email, password, userName } = req.body;
 
-  // const isEmailAndPasswordAndUsernameValid = () => {
-  // if (!email || !password || !userName) {
-  //   throw Error("All fileds must be filled");
-  // }
-  // if (!validator.isEmail(email)) {
-  //   throw Error("Email is not valid");
-  // }
-  // if (!validator.isStrongPassword(password)) {
-  //   throw Error("Password not strong enough");
-  // } else return true;
-  // };
-
+  // If if stament is true then call isEmailAndPasswordAndUsernameValid
+  // Send email, password, username as paramters
+  // if (isEmailAndPasswordAndUsernameValid(email, password, userName)) {
   try {
     const existingUser = await userModel.findOne({
       // email = request.body.email (destructed)
@@ -62,6 +54,7 @@ const signUp = async (req, res) => {
     console.log("signup error>>", error);
     res.status(500).json({ message: "Something went wring during singup" });
   }
+  // }
 };
 
 const imageUpload = async (req, res) => {
