@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Register() {
-  const [newUser, setNewUser] = useState({});
+  // const [newUser, setNewUser] = useState({});
+  const { newUser, setNewUser } = useContext(AuthContext);
 
   const handleChangeHandler = (e) => {
     console.log(
@@ -34,18 +36,23 @@ function Register() {
       redirect: "follow",
     };
 
-    const response = await fetch(
-      "http://localhost:5000/api/users/signup",
-      requestOptions
-    );
-    const result = await response.json();
-    console.log("result>>", result);
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/signup",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("result>>", result);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <div>
       <h2>Register Page</h2>
       <div>
-        <label htmlFor="email"></label>
+        <label htmlFor="email">email</label>
         <input
           id="email"
           type="text"
@@ -55,7 +62,7 @@ function Register() {
         />
       </div>
       <div>
-        <label htmlFor="userName"></label>
+        <label htmlFor="userName">username</label>
         <input
           id="username"
           type="text"
@@ -66,7 +73,7 @@ function Register() {
         />
       </div>
       <div>
-        <label htmlFor="password"></label>
+        <label htmlFor="password">password</label>
         <input
           id="password"
           type="text"
@@ -75,7 +82,7 @@ function Register() {
           onChange={handleChangeHandler}
         />
       </div>
-      <button onChange={signUp}>Sign Up</button>
+      <button onClick={signUp}>Sign Up</button>
     </div>
   );
 }

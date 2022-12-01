@@ -6,6 +6,18 @@ const signUp = async (req, res) => {
   console.log("req.body>>", req.body);
   const { email, password, userName } = req.body;
 
+  // const isEmailAndPasswordAndUsernameValid = () => {
+  // if (!email || !password || !userName) {
+  //   throw Error("All fileds must be filled");
+  // }
+  // if (!validator.isEmail(email)) {
+  //   throw Error("Email is not valid");
+  // }
+  // if (!validator.isStrongPassword(password)) {
+  //   throw Error("Password not strong enough");
+  // } else return true;
+  // };
+
   try {
     const existingUser = await userModel.findOne({
       // email = request.body.email (destructed)
@@ -42,6 +54,7 @@ const signUp = async (req, res) => {
         console.log("reg error>>", error);
         res.status(500).json({
           message: "user registration failed",
+          error: error.message,
         });
       }
     }

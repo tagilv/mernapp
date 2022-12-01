@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function Profile() {
   const [selectedFile, setSelectedFile] = useState({});
-
   const [newUser, setNewUser] = useState({});
 
   const attachFilehandler = (e) => {
