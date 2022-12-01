@@ -1,5 +1,5 @@
 import express from "express";
-import { imageUpload, signUp } from "../controller/usersController.js";
+import { imageUpload, logIn, signUp } from "../controller/usersController.js";
 import upload from "../middlewares/multer.js";
 const router = express.Router();
 
@@ -8,5 +8,7 @@ const router = express.Router();
 router.post("/uploadimage", upload.single("image"), imageUpload);
 
 router.post("/signup", signUp);
+
+router.post("/login", logIn);
 
 export default router;

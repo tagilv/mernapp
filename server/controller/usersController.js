@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import userModel from "../model/usersModel.js";
 import encryptPassword from "../utils/encryptPassword.js";
+import isPasswordCorrect from "../utils/verifyPassword.js";
 // import isEmailAndPasswordAndUsernameValid from "../utils/validation.js";
 
 const signUp = async (req, res) => {
@@ -75,4 +76,34 @@ const imageUpload = async (req, res) => {
   }
 };
 
-export { imageUpload, signUp };
+const logIn = async (req, res) => {
+  // destrcuture of req.body.email
+  // password below is the password the user put in
+  const { email, password } = req.body;
+
+  try {
+    // password below is of the existing (registered) user
+    const existingUser = await userModel.findOne({ email: email });
+    console.log("existingUser", existingUser);
+    if (!existingUser) {
+      res.status(401).json({ message: "User with this email does not exist" });
+    } else {
+      // Since isPassordCorrect is an asynchronous function, need to add await
+      const verified = await isPasswordCorrect(password, existingUser.password);
+      console.log("verified", verified);
+
+      if (!verified) {
+        res.status(401).json({ message: "Password incorrect" });
+      }
+      // Instead of putting an else in another if put if and expalain, for readbility
+      if (verified) {
+        console.log("verified", verified);
+      }
+    }
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ Message: "Something went wrong" });
+  }
+};
+
+export { imageUpload, signUp, logIn };
