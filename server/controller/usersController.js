@@ -2,6 +2,7 @@ import { v2 as cloudinary } from "cloudinary";
 import userModel from "../model/usersModel.js";
 import encryptPassword from "../utils/encryptPassword.js";
 import isPasswordCorrect from "../utils/verifyPassword.js";
+import issueToken from "../utils/jwt.js";
 // import isEmailAndPasswordAndUsernameValid from "../utils/validation.js";
 
 const signUp = async (req, res) => {
@@ -98,6 +99,20 @@ const logIn = async (req, res) => {
       // Instead of putting an else in another if put if and expalain, for readbility
       if (verified) {
         console.log("verified", verified);
+        // Password matches so generate the token and store it in a variable
+        const token = issueToken(existingUser._id);
+        console.log("token", token);
+        //Send back user info so we can use it in the auth context
+        res.status(200).json({
+          message: "login successfull",
+          user: {
+            userName: existingUser.userName,
+            id: existingUser.id,
+            email: existingUser.email,
+            avatarPicture: existingUser.avatarPicture,
+          },
+          token,
+        });
       }
     }
   } catch (error) {

@@ -7,6 +7,9 @@ import Nav from "./components/Nav";
 import Profile from "./views/Profile";
 import Register from "./views/Register";
 import { AuthContextProvider } from "./context/AuthContext";
+import Login from "./views/Login";
+// import { useEffect } from "react";
+// import getToken from "./utils/getToken";
 
 function App() {
   return (
@@ -16,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/weeks" element={<Weeks />} />
           <Route path="/week" element={<Week />} />
           <Route path="/weeks/:weekNumber" element={<Week />} />

@@ -52,16 +52,6 @@ function Register() {
     <div>
       <h2>Register Page</h2>
       <div>
-        <label htmlFor="email">email</label>
-        <input
-          id="email"
-          type="text"
-          name="email"
-          value={newUser.email ? newUser.email : ""}
-          onChange={handleChangeHandler}
-        />
-      </div>
-      <div>
         <label htmlFor="userName">username</label>
         <input
           id="username"
@@ -69,6 +59,16 @@ function Register() {
           name="userName"
           // The value of my input is what I am going to store in the new user, if there is no new user, leave empty. Otherwise will have an error in the begining when there is no information in my new user.
           value={newUser.userName ? newUser.userName : ""}
+          onChange={handleChangeHandler}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">email</label>
+        <input
+          id="email"
+          type="text"
+          name="email"
+          value={newUser.email ? newUser.email : ""}
           onChange={handleChangeHandler}
         />
       </div>
