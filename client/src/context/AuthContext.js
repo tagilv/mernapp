@@ -12,7 +12,41 @@ export const AuthContextProvider = ({ children }) => {
   // REGISTER/SIGNUP
   const [newUser, setNewUser] = useState({});
 
-  // LOGIN
+  const signUp = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("email", newUser.email);
+    urlencoded.append("password", newUser.password);
+    urlencoded.append("userName", newUser.userName);
+    urlencoded.append(
+      "avatarPicture",
+      newUser.avatarPicture
+        ? newUser.avatarPicture
+        : "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/"
+    );
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/signup",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("result>>", result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //LOGIN
   const [userLogin, setUserLogin] = useState({});
   const login = async () => {
     console.log("userLogin", userLogin);
@@ -62,11 +96,17 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ newUser, setNewUser, login, userLogin, setUserLogin, logout }}
+      value={{
+        signUp,
+        newUser,
+        setNewUser,
+        login,
+        userLogin,
+        setUserLogin,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
-
-//4 Move state and function

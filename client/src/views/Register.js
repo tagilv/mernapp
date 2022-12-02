@@ -2,8 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 function Register() {
-  // const [newUser, setNewUser] = useState({});
-  const { newUser, setNewUser } = useContext(AuthContext);
+  const { newUser, setNewUser, signUp } = useContext(AuthContext);
 
   const handleChangeHandler = (e) => {
     console.log(
@@ -12,40 +11,6 @@ function Register() {
       e.target.value
     );
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
-  };
-
-  const signUp = async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("email", newUser.email);
-    urlencoded.append("password", newUser.password);
-    urlencoded.append("userName", newUser.userName);
-    urlencoded.append(
-      "avatarPicture",
-      newUser.avatarPicture
-        ? newUser.avatarPicture
-        : "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/"
-    );
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: "follow",
-    };
-
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/signup",
-        requestOptions
-      );
-      const result = await response.json();
-      console.log("result>>", result);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
