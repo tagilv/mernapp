@@ -1,17 +1,21 @@
 import { v2 as cloudinary } from "cloudinary";
 import userModel from "../model/usersModel.js";
 import encryptPassword from "../utils/encryptPassword.js";
-import isPasswordCorrect from "../utils/verifyPassword.js";
 import issueToken from "../utils/jwt.js";
-// import isEmailAndPasswordAndUsernameValid from "../utils/validation.js";
+
+import { check, body, validationResult } from "express-validator";
 
 const signUp = async (req, res) => {
-  console.log("req.body>>", req.body);
+  // const { body } = req
   const { email, password, userName } = req.body;
+  // console.log("req.body>>", body);
 
-  // If if stament is true then call isEmailAndPasswordAndUsernameValid
-  // Send email, password, username as paramters
-  // if (isEmailAndPasswordAndUsernameValid(email, password, userName)) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
   try {
     const existingUser = await userModel.findOne({
       // email = request.body.email (destructed)
@@ -56,7 +60,6 @@ const signUp = async (req, res) => {
     console.log("signup error>>", error);
     res.status(500).json({ message: "Something went wring during singup" });
   }
-  // }
 };
 
 const imageUpload = async (req, res) => {
@@ -100,7 +103,7 @@ const logIn = async (req, res) => {
       if (verified) {
         console.log("verified", verified);
         // Password matches so generate the token and store it in a variable
-        const token = issueToken(existingUser._id);
+        const token = issueToken(existingUser._id, existingUser.email);
         console.log("token", token);
         //Send back user info so we can use it in the auth context
         res.status(200).json({

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Profile() {
   const [selectedFile, setSelectedFile] = useState({});
-  const [newUser, setNewUser] = useState({});
+  // const [newUser, setNewUser] = useState({});
+  const { newUser, setNewUser } = useContext(AuthContext);
 
   const attachFilehandler = (e) => {
     setSelectedFile(e.target.files[0]);

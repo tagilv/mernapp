@@ -1,5 +1,6 @@
 import JsonWebToken from "jsonwebtoken";
 
+// what matters here is the position when we are sneidng it in the user controller
 const issueToken = (userId, userEmail) => {
   const payload = {
     sub: userId,

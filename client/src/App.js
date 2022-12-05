@@ -8,8 +8,6 @@ import Profile from "./views/Profile";
 import Register from "./views/Register";
 import { AuthContextProvider } from "./context/AuthContext";
 import Login from "./views/Login";
-// import { useEffect } from "react";
-// import getToken from "./utils/getToken";
 
 function App() {
   return (

@@ -8,6 +8,7 @@ function Week() {
   return (
     <h2>Singel week</h2>
 
+    // limk to exercises
     // <TreatmentWeek key={treatmentWeek._id} treatmentWeek={treatmentWeek} />
   );
 }
