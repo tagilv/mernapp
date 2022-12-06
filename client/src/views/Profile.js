@@ -1,10 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import getToken from "../utils/getToken.js";
 
 function Profile() {
+  const { userLogin, setUserLogin } = useContext(AuthContext);
   const [selectedFile, setSelectedFile] = useState({});
-  // const [newUser, setNewUser] = useState({});
-  const { newUser, setNewUser } = useContext(AuthContext);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      setError("You need to log in");
+    }
+  }, [error]);
+
+  // USE IF USER INSTEAD OF TOKEN AND DO IT IN AUTHCONTEXT
 
   const attachFilehandler = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -32,16 +42,19 @@ function Profile() {
     const result = await response.json();
 
     // Note: Since user with email and pw might already created we use the spread operator. Go inside the newUser variable and take whatever is there and put it together with what I insert.
-    setNewUser({ ...newUser, avatarPicture: result.image });
-
-    console.log("newUser>>", newUser);
+    setUserLogin({ ...userLogin, avatarPicture: result.image });
     console.log("result>>", result);
   };
+
+  // // To trigger the getProfile to get the userLogin info as the view loads
+  // useEffect(() => {
+  //   getProfile();
+  // }, []);
 
   return (
     <>
       <div>
-        <h2>Welcome to your profile</h2>
+        <h2>Welcome to your profile</h2>\
         <form>
           <input
             type="file"
@@ -51,7 +64,18 @@ function Profile() {
           />
           <button onClick={submitForm}>Upload Picture</button>
         </form>
-        {newUser && <img src={newUser.avatarPicture} alt="" />}
+        <h2>Placeholder pic</h2>
+        {userLogin && (
+          <div>
+            <p>Welcome {userLogin.email}</p>
+            <img src={userLogin.avatarPicture} alt="avatarPicture" />
+            {/* <img src={userLogin.avatar} alt="avatar" /> */}
+            {console.log("userLogin.avatarPicture", userLogin.avatarPicture)}
+            {console.log("userLogin.avatar", userLogin.avatar)}
+            {/* {console.log("userLogin", userLogin)} */}
+          </div>
+        )}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
     </>
   );

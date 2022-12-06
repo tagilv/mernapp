@@ -1,15 +1,21 @@
 import express from "express";
-import { imageUpload, logIn, signUp } from "../controller/usersController.js";
+import {
+  getProfile,
+  imageUpload,
+  logIn,
+  signUp,
+} from "../controller/usersController.js";
 import upload from "../middlewares/multer.js";
-
 import { check, body, validationResult } from "express-validator";
-
+import jwtAuth from "../middlewares/jwtAuth.js";
 const router = express.Router();
 
-// users/upload here below
-// If upload.single("image") is succesfull the thrid fucntion/callback will run
+// If upload.single("image") is succesfull the thrird fucntion/callback (the imageUpload in the controller runs)
+
+// UPLOAD IMAGE
 router.post("/uploadimage", upload.single("image"), imageUpload);
 
+// SINGUP USER
 router.post(
   "/signup",
   body("email").isEmail().withMessage("must be a valid email"),
@@ -19,13 +25,11 @@ router.post(
   signUp
 );
 
+// LOGIN EXISTING USER
 router.post("/login", logIn);
 
-export default router;
+// ACCESS EXISTING USERS PROFILE
 
-// router.post(
-//   "/signup",
-//   body("email").isEmail(),
-//   body("password").isLength({ min: 5 }),
-//   signUp
-// );
+router.get("/profile", jwtAuth, getProfile);
+
+export default router;

@@ -7,6 +7,8 @@ import weeksRoutes from "./routes/weeksRoutes.js";
 import exercisesRoutes from "./routes/exercisesRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import cloudinaryConfig from "./config/cloudinary.js";
+import passport from "passport";
+import passportConfig from "./config/passport.js";
 dotenv.config();
 // Creates express app and stores in app constant:
 const app = express();
@@ -27,6 +29,8 @@ const addMiddleWares = () => {
   };
   app.use(cors(corsOptions));
   cloudinaryConfig();
+  app.use(passport.initialize());
+  passportConfig(passport);
 };
 
 const startServer = () => {

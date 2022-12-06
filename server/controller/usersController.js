@@ -2,6 +2,7 @@ import { v2 as cloudinary } from "cloudinary";
 import userModel from "../model/usersModel.js";
 import encryptPassword from "../utils/encryptPassword.js";
 import issueToken from "../utils/jwt.js";
+import isPasswordCorrect from "../utils/verifyPassword.js";
 
 import { check, body, validationResult } from "express-validator";
 
@@ -38,7 +39,7 @@ const signUp = async (req, res) => {
         userName: userName,
         avatarPicture: req.body.avatarPicture
           ? req.body.avatarPicture
-          : "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/",
+          : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
       });
 
       try {
@@ -58,7 +59,7 @@ const signUp = async (req, res) => {
     }
   } catch (error) {
     console.log("signup error>>", error);
-    res.status(500).json({ message: "Something went wring during singup" });
+    res.status(500).json({ message: "Something went wrong during signup" });
   }
 };
 
@@ -67,9 +68,15 @@ const imageUpload = async (req, res) => {
 
   try {
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      // Folder in cloudiary where the image will be stored
       folder: "ryggskolan-images",
     });
     console.log("uploadResult>>", uploadResult);
+
+    setUser;
+    // update user
+    // send back full user
+
     res.status(200).json({
       msg: "image uploaded successfully",
       image: uploadResult.secure_url,
@@ -124,4 +131,16 @@ const logIn = async (req, res) => {
   }
 };
 
-export { imageUpload, signUp, logIn };
+const getProfile = async (req, res) => {
+  // console.log("get profile req object", req);
+  const { userName, email, avatarPicture } = req.user;
+  console.log("req.user", req.user);
+  // Then we can remove user: req.user and replace by the below
+  res.status(200).json({
+    userName: userName,
+    email: email,
+    avatarPicture: avatarPicture,
+  });
+};
+
+export { imageUpload, signUp, logIn, getProfile };

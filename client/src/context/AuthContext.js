@@ -24,7 +24,7 @@ export const AuthContextProvider = ({ children }) => {
       "avatarPicture",
       newUser.avatarPicture
         ? newUser.avatarPicture
-        : "https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/"
+        : "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
     );
 
     const requestOptions = {
@@ -47,7 +47,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   //LOGIN
-  const [userLogin, setUserLogin] = useState({});
+  const [userLogin, setUserLogin] = useState(null);
   const login = async () => {
     console.log("userLogin", userLogin);
 
@@ -74,6 +74,7 @@ export const AuthContextProvider = ({ children }) => {
       //find token (same as result.token)
       console.log("result", result);
       const { token } = result;
+      // set user
       if (token) {
         localStorage.setItem("token", token);
       }
@@ -90,8 +91,39 @@ export const AuthContextProvider = ({ children }) => {
     console.log("user logged out");
   };
 
+  // GET PROFILE
+
+  const getProfile = async () => {
+    const token = getToken();
+    // console.log("Profile loading");
+    // if (token) {
+    //   setError(null);
+    // }
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/profile",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("profile result", result);
+      setUserLogin(result);
+    } catch (error) {
+      console.log("Error getting user profile", error);
+    }
+  };
+
   useEffect(() => {
-    getToken();
+    getProfile();
   }, []);
 
   return (
