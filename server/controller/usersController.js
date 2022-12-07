@@ -7,10 +7,7 @@ import isPasswordCorrect from "../utils/verifyPassword.js";
 import { check, body, validationResult } from "express-validator";
 
 const signUp = async (req, res) => {
-  // const { body } = req
   const { email, password, userName } = req.body;
-  // console.log("req.body>>", body);
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -19,7 +16,6 @@ const signUp = async (req, res) => {
   }
   try {
     const existingUser = await userModel.findOne({
-      // email = request.body.email (destructed)
       email: email,
     });
     if (existingUser) {
@@ -28,11 +24,8 @@ const signUp = async (req, res) => {
         message: "email already in use",
       });
     } else {
-      // hwne we reac here we know we do not have a user with this email. So we will hash the password entered.
       const hashedPassword = await encryptPassword(password);
       console.log("hashedPassword>>", hashedPassword);
-
-      // Te new user is going to be a new userModel (object)
       const newUser = new userModel({
         email: email,
         password: hashedPassword,
@@ -60,30 +53,6 @@ const signUp = async (req, res) => {
   } catch (error) {
     console.log("signup error>>", error);
     res.status(500).json({ message: "Something went wrong during signup" });
-  }
-};
-
-const imageUpload = async (req, res) => {
-  console.log("req.file", req.file);
-
-  try {
-    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-      // Folder in cloudiary where the image will be stored
-      folder: "ryggskolan-images",
-    });
-    console.log("uploadResult>>", uploadResult);
-
-    setUser;
-    // update user
-    // send back full user
-
-    res.status(200).json({
-      msg: "image uploaded successfully",
-      image: uploadResult.secure_url,
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Image upload went wrong" });
-    console.log("error uploading image", error);
   }
 };
 
@@ -131,6 +100,30 @@ const logIn = async (req, res) => {
   }
 };
 
+const imageUpload = async (req, res) => {
+  console.log("req.file", req.file);
+
+  try {
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      // Folder in cloudiary where the image will be stored
+      folder: "ryggskolan-images",
+    });
+    console.log("uploadResult>>", uploadResult);
+
+    // setUser
+    // update user
+    // (send back full user)
+
+    res.status(200).json({
+      msg: "image uploaded successfully",
+      image: uploadResult.secure_url,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Image upload went wrong" });
+    console.log("error uploading image", error);
+  }
+};
+
 const getProfile = async (req, res) => {
   // console.log("get profile req object", req);
   const { userName, email, avatarPicture } = req.user;
@@ -143,4 +136,33 @@ const getProfile = async (req, res) => {
   });
 };
 
-export { imageUpload, signUp, logIn, getProfile };
+const updateProfile = async (req, res) => {
+  // req.user comes from backend, req.body would come from the front end
+  const { avatarPicture } = req.body;
+  const { userName, email } = req.user;
+  console.log(req.body);
+  console.log(req.user);
+  try {
+    const existingUser = await userModel.findOneAndUpdate(
+      // "First" email is the field in db(its key), the "second" email from the req.user
+      { email: email },
+      {
+        // "first" field (avatarPicture) is that needs to be updated, second is by what
+        avatarPicture: avatarPicture,
+        // Now in front end, upload the picture to cloudinary, which will return a url, put that url in the body of the new request. Finally, make a new request with that token to update the profile route.
+      },
+      { new: true }
+    );
+    console.log("new existingUser", existingUser);
+    res.status(200).json({
+      // Use existingUser to send back the newest version
+      userName: existingUser.userName,
+      email: existingUser.email,
+      avatarPicture: existingUser.avatarPicture,
+    });
+  } catch (error) {
+    console.log("error updating user", error);
+  }
+};
+
+export { imageUpload, signUp, logIn, getProfile, updateProfile };

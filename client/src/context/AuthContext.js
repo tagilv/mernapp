@@ -1,6 +1,6 @@
 //1 Import Hook
 import { createContext, useEffect, useState } from "react";
-import getToken from "../utils/getToken";
+import getToken from "../utils/getToken.js";
 
 //2 Create Context/Store
 
@@ -9,6 +9,14 @@ export const AuthContext = createContext();
 //3 Create provider
 
 export const AuthContextProvider = ({ children }) => {
+  console.log("authcontext run");
+
+  // USER state created here to be to set the user after login and then export value and use in other components in application
+  const [user, setUser] = useState({});
+
+  // Need to add the below when adding proteced routes to give time to get user
+  // const [isLogged, setIsLogged] = useState(false);
+
   // REGISTER/SIGNUP
   const [newUser, setNewUser] = useState({});
 
@@ -33,7 +41,6 @@ export const AuthContextProvider = ({ children }) => {
       body: urlencoded,
       redirect: "follow",
     };
-
     try {
       const response = await fetch(
         "http://localhost:5000/api/users/signup",
@@ -47,16 +54,15 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   //LOGIN
-  const [userLogin, setUserLogin] = useState(null);
-  const login = async () => {
-    console.log("userLogin", userLogin);
+  const login = async (email, password) => {
+    console.log("email, password>>>>", email, password);
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const urlencoded = new URLSearchParams();
-    urlencoded.append("email", userLogin.email);
-    urlencoded.append("password", userLogin.password);
+    urlencoded.append("email", email);
+    urlencoded.append("password", password);
 
     const requestOptions = {
       method: "POST",
@@ -64,7 +70,6 @@ export const AuthContextProvider = ({ children }) => {
       body: urlencoded,
       redirect: "follow",
     };
-
     try {
       const response = await fetch(
         "http://localhost:5000/api/users/login",
@@ -78,16 +83,20 @@ export const AuthContextProvider = ({ children }) => {
       if (token) {
         localStorage.setItem("token", token);
       }
+      setUser(result.user);
+      // Need to add the below when adding proteced routes to give time to get user
+      // setIsLogged(true);
     } catch (error) {
+      // Need to add the below when adding proteced routes to give time to get user
+      // setIsLogged(true);
       console.log("error", error);
     }
   };
 
   //LOGOUT
-
   const logout = () => {
     localStorage.removeItem("token");
-    setUserLogin(false);
+    setUser(false);
     console.log("user logged out");
   };
 
@@ -116,13 +125,18 @@ export const AuthContextProvider = ({ children }) => {
       );
       const result = await response.json();
       console.log("profile result", result);
-      setUserLogin(result);
+      setUser(result);
+      // Need to add the below when adding proteced routes to give time to get user
+      // setIsLogged(true);
     } catch (error) {
+      // Need to add the below when adding proteced routes to give time to get user
+      // setIsLogged(true);
       console.log("Error getting user profile", error);
     }
   };
 
   useEffect(() => {
+    console.log("useEffect getProfile run>>>");
     getProfile();
   }, []);
 
@@ -133,9 +147,12 @@ export const AuthContextProvider = ({ children }) => {
         newUser,
         setNewUser,
         login,
-        userLogin,
-        setUserLogin,
+        user,
+        setUser,
         logout,
+        getProfile,
+        // Need to add the below when adding proteced routes to give time to get user
+        // isLogged,
       }}
     >
       {children}

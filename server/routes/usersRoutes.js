@@ -4,6 +4,7 @@ import {
   imageUpload,
   logIn,
   signUp,
+  updateProfile,
 } from "../controller/usersController.js";
 import upload from "../middlewares/multer.js";
 import { check, body, validationResult } from "express-validator";
@@ -31,5 +32,10 @@ router.post("/login", logIn);
 // ACCESS EXISTING USERS PROFILE
 
 router.get("/profile", jwtAuth, getProfile);
+
+// EDIT EXISTING USER
+
+// Need to put jwtAuth middlewear to get information about the user
+router.post("/update", jwtAuth, updateProfile);
 
 export default router;
