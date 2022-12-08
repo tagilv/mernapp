@@ -20,7 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/weeks" element={<Weeks />} />
           <Route path="/week" element={<Week />} />
-          <Route path="/weeks/:weekNumber" element={<Week />} />
+          <Route path="/weeks/:week" element={<Week />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </AuthContextProvider>

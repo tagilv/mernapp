@@ -35,11 +35,12 @@ const getWeeksByWeek = async (req, res) => {
       res.status(202).json({
         message: "No week with this number",
       });
+    } else {
+      res.json({
+        requestedWeek,
+        number: requestedWeek.length,
+      });
     }
-    res.json({
-      requestedWeek,
-      number: requestedWeek.length,
-    });
   } catch (error) {
     console.log("error getting weeks>>", error);
     res.status(500).json({

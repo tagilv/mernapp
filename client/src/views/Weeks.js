@@ -13,7 +13,6 @@ function Weeks() {
       console.log("results>>", results);
       setTreatmentWeeks(results.data);
       console.log("results.data>>", results.data);
-      // console.log("results.data>>", results.data[0].week);
     } catch (error) {
       console.log("error fetching getWeeks>>", error);
     }
@@ -26,11 +25,6 @@ function Weeks() {
   return (
     <>
       <div className="App">
-        {/* <button onClick={() => setWeek(1)}>Week1</button>
-        <button onClick={() => setWeek(2)}>Week2</button>
-
-        {week && <SingleWeek treatmentWeek={treatmentWeeks[week]} />} */}
-
         {treatmentWeeks &&
           treatmentWeeks.map((treatmentWeek, i) => {
             return (
@@ -50,13 +44,20 @@ function Weeks() {
   );
 }
 
-export function SingleWeek({ treatmentWeek }) {
-  console.log("treatmentWeek", treatmentWeek);
-  return (
-    <div>
-      <p>{treatmentWeek.week}</p>
-    </div>
-  );
-}
+// export function SingleWeek({ treatmentWeek }) {
+//   console.log("treatmentWeek", treatmentWeek);
+//   return (
+//     <div>
+//       <p>{treatmentWeek.week}</p>
+//     </div>
+//   );
+// }
 
 export default Weeks;
+
+{
+  /* <button onClick={() => setWeek(1)}>Week1</button>
+        <button onClick={() => setWeek(2)}>Week2</button>
+
+        {week && <SingleWeek treatmentWeek={treatmentWeeks[week]} />} */
+}
