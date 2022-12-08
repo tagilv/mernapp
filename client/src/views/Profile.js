@@ -28,6 +28,11 @@ function Profile() {
   const submitForm = async (e) => {
     console.log("selectedFile>>", selectedFile);
     e.preventDefault();
+    const token = getToken();
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const formdata = new FormData();
     formdata.append("image", selectedFile);
@@ -43,14 +48,53 @@ function Profile() {
       requestOptions
     );
     const result = await response.json();
-    console.log("image upload working");
 
-    setUser({ ...user, avatarPicture: result.image });
-    //Previously:
-    // Then go to userController and set the image in the front
-    // setUserLogin({ ...userLogin, avatarPicture: result.image });
+    // Experiment starts here
+
+    // Create a function that will take that image url
+    // This function will make a reqest to the route just tested
+    // At the end of the request we will recive the new user and set it
+    // Set user below can be removed
+
+    // Experiment ends here
+
+    // setUser({ ...user, avatarPicture: result.image });
+
     console.log("result>>", result);
     console.log("selectedFile>>", selectedFile);
+    // setUser(result);
+    updateProfile(result);
+  };
+
+  const updateProfile = async (result) => {
+    console.log("result", result);
+    const token = getToken();
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("avatarPicture", result.image);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/update",
+        requestOptions
+      );
+      const updatedUser = await response.json();
+      console.log("updatedUser", updatedUser);
+      setUser(updatedUser);
+    } catch (error) {
+      console.log("Error updating image>>", error);
+    }
   };
 
   // // To trigger the getProfile to get the userLogin info as the view loads

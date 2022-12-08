@@ -124,6 +124,47 @@ const imageUpload = async (req, res) => {
   }
 };
 
+// const imageUpload = async (req, res) => {
+//   try {
+//     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+//       // Folder in cloudiary where the image will be stored
+//       folder: "ryggskolan-images",
+//     });
+//     console.log("uploadResult>>", uploadResult);
+
+//     try {
+//       // const { avatarPicture } = req.body;
+//       const { userName, email } = req.user;
+//       const existingUser = await userModel.findOneAndUpdate(
+//         // "First" email is the field in db(its key), the "second" email from the req.user
+//         { email: email },
+//         {
+//           // "first" field (avatarPicture) is that needs to be updated, second is by what
+//           avatarPicture: uploadResult,
+//           // Now in front end, upload the picture to cloudinary, which will return a url, put that url in the body of the new request. Finally, make a new request with that token to update the profile route.
+//         },
+//         { new: true }
+//       );
+//       res.status(200).json({
+//         // Use existingUser to send back the newest version
+//         userName: existingUser.userName,
+//         email: existingUser.email,
+//         avatarPicture: existingUser.avatarPicture,
+//       });
+//       //update user here to insert picture
+//     } catch (error) {
+//       console.log("Error updating image");
+//     }
+//     // res.status(200).json({
+//     //   msg: "image uploaded successfully",
+//     //   image: uploadResult.secure_url,
+//     // });
+//   } catch (error) {
+//     res.status(500).json({ message: "Image upload went wrong" });
+//     console.log("error uploading image", error);
+//   }
+// };
+
 const getProfile = async (req, res) => {
   // console.log("get profile req object", req);
   const { userName, email, avatarPicture } = req.user;
@@ -138,7 +179,7 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   // req.user comes from backend, req.body would come from the front end
-  const { avatarPicture } = req.body;
+  const { avatarPicture, newEmail } = req.body;
   const { userName, email } = req.user;
   console.log(req.body);
   console.log(req.user);
@@ -149,6 +190,7 @@ const updateProfile = async (req, res) => {
       {
         // "first" field (avatarPicture) is that needs to be updated, second is by what
         avatarPicture: avatarPicture,
+        // email: newEmail
         // Now in front end, upload the picture to cloudinary, which will return a url, put that url in the body of the new request. Finally, make a new request with that token to update the profile route.
       },
       { new: true }
