@@ -8,6 +8,7 @@ import Profile from "./views/Profile";
 import Register from "./views/Register";
 import { AuthContextProvider } from "./context/AuthContext";
 import Login from "./views/Login";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/weeks/:week" element={<Week />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
+        <Footer />
       </AuthContextProvider>
     </div>
   );

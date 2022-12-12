@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-
 import { FaBars } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 function Nav() {
   const { user } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { logout } = useContext(AuthContext);
+
+  let location = useLocation();
+  console.log("location", location.pathname);
 
   const handleToggle = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -25,7 +29,6 @@ function Nav() {
             {/* logo */}
             <div className="flex items-center py-4 px-1  text-gray-700 hover:text-gray-900">
               <Link to="/">Logo</Link>
-              {/* <span className="font-bold">Ryggskolan</span> */}
             </div>
 
             {/* primary nav */}
@@ -43,22 +46,26 @@ function Nav() {
             <Link className="py-5 px-1" to="/profile">
               Profile
             </Link>
-            <Link
-              className="py-1 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-800 hover:text-yellow-800 rounded shadow transition duration-400"
-              to="/login"
-            >
-              login
-            </Link>
-            {/* <p>{user.email}</p> */}
+            {user ? (
+              <Link
+                className="py-1 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-800 hover:text-yellow-800 rounded shadow transition duration-400"
+                to="/"
+                onClick={logout}
+              >
+                logout
+              </Link>
+            ) : (
+              <Link
+                className="py-1 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-800 hover:text-yellow-800 rounded shadow transition duration-400"
+                to="/login"
+              >
+                login
+              </Link>
+            )}
           </div>
 
           {/* Mobile button goes here */}
           <div className="md:hidden flex items-center">
-            {/* <button onClick={handleToggle}>
-              {mobileMenuOpen ? "Close" : "Open"}
-            </button>
-            <ul className={`menuNav ${mobileMenuOpen ? " showMenu" : ""}`}>
-            </ul> */}
             <button
               onClick={handleToggle}
               className="mobile-menu-button"
@@ -75,8 +82,8 @@ function Nav() {
         <Link
           className={`mobile-menu ${
             mobileMenuOpen
-              ? "block py-4 px-4 text-sm hover:bg-gray-300"
-              : "hidden block py-4 px-4 text-sm hover:bg-gray-300"
+              ? "block py-2 px-4 text-sm hover:bg-gray-300"
+              : "hidden block py-2 px-4 text-sm hover:bg-gray-300"
           }`}
           to="/weeks"
         >
@@ -85,8 +92,8 @@ function Nav() {
         <Link
           className={`mobile-menu ${
             mobileMenuOpen
-              ? "block py-4 px-4 text-sm hover:bg-gray-300"
-              : "hidden block py-4 px-4 text-sm hover:bg-gray-300"
+              ? "block py-2 px-4 text-sm hover:bg-gray-300"
+              : "hidden block py-2 px-4 text-sm hover:bg-gray-300"
           }`}
           to="/profile"
         >
@@ -100,8 +107,5 @@ function Nav() {
 export default Nav;
 
 {
-  /* {user && <p>Hi you {user.email}</p>}
-          <h2>Nav</h2> <Link to="/">Home</Link> | <Link to="/weeks">Weeks</Link>
-          | <Link to="/profile">Profile</Link> |{" "}
-          <Link to="/register">register</Link> | <Link to="/login">login</Link> */
+  /* <p>{user.email}</p> */
 }

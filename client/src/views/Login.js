@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext.js";
+import { Link } from "react-router-dom";
 
 // When handling user input, do not put it in a context as it will trick the app that the user is logged in. Better to save in a state.
 
@@ -10,7 +11,7 @@ function Login() {
   const password = useRef();
 
   return (
-    <div>
+    <div className="h-screen container mx-auto px-4 bg-amber-100">
       <h2>Login Page</h2>
       <div>
         <label htmlFor="email">email</label>
@@ -20,14 +21,18 @@ function Login() {
         <label htmlFor="password">password</label>
         <input id="password" type="text" name="password" ref={password} />
       </div>
-      <button
+      <Link
         onClick={() => login(email.current.value, password.current.value)}
+        to="/weeks"
       >
         login
-      </button>
-      <button onClick={logout}>logout</button>
+      </Link>
     </div>
   );
 }
 
 export default Login;
+
+{
+  /* <button onClick={logout}>logout</button> */
+}

@@ -24,7 +24,7 @@ function Weeks() {
 
   return (
     <>
-      <div className="App">
+      <div className="App h-screen">
         {treatmentWeeks &&
           treatmentWeeks.map((treatmentWeek, i) => {
             return (
