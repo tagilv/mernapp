@@ -5,7 +5,16 @@ const getAllWeeks = async (req, res) => {
   try {
     const allWeeks = await weekModel
       .find({})
-      .populate({ path: "exercises", select: ["id", "description"] });
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          model: "user",
+          select: "userName email avatarPicture",
+        },
+      })
+      .populate({ path: "exercises" })
+      .exec();
     console.log("allWeeks:>>", allWeeks);
     res.status(200).json({
       numberOfWeeks: allWeeks.length,

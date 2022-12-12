@@ -44,20 +44,4 @@ function Weeks() {
   );
 }
 
-// export function SingleWeek({ treatmentWeek }) {
-//   console.log("treatmentWeek", treatmentWeek);
-//   return (
-//     <div>
-//       <p>{treatmentWeek.week}</p>
-//     </div>
-//   );
-// }
-
 export default Weeks;
-
-{
-  /* <button onClick={() => setWeek(1)}>Week1</button>
-        <button onClick={() => setWeek(2)}>Week2</button>
-
-        {week && <SingleWeek treatmentWeek={treatmentWeeks[week]} />} */
-}

@@ -10,6 +10,7 @@ const weekSchema = new Schema({
   },
 
   exercises: [{ type: Schema.Types.ObjectId, ref: "exercise" }],
+  comments: [{ type: Schema.Types.ObjectId, ref: "comment" }],
 });
 
 const weekModel = mongoose.model("week", weekSchema);

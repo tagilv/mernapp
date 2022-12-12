@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import Comments from "../components/Comments.js";
 import DetailedTreatmentWeek from "../components/DetailedTreatmentWeek.js";
 
 function Week() {
@@ -29,6 +30,7 @@ function Week() {
         console.log("results.requestedWeek[0]>>", results.requestedWeek[0]);
         setWeekDetails(results.requestedWeek[0]);
         // console.log("results.data>>", results.data);
+        console.log("WEEK DATA WITH COMMENTS?", results.requestedWeek[0]);
       } catch (error) {
         console.log("error fetching weekly excercises>>", error);
       }
@@ -46,6 +48,7 @@ function Week() {
       ) : (
         <p>loading</p>
       )}
+      <Comments />
     </>
   );
 }

@@ -9,6 +9,7 @@ import usersRoutes from "./routes/usersRoutes.js";
 import cloudinaryConfig from "./config/cloudinary.js";
 import passport from "passport";
 import passportConfig from "./config/passport.js";
+import commentModel from "./model/commentsModel.js";
 dotenv.config();
 // Creates express app and stores in app constant:
 const app = express();
@@ -43,6 +44,9 @@ const loadRoutes = () => {
   app.use("/api", router);
   app.use("/api/weeks", weeksRoutes);
   app.use("/api/exercises", exercisesRoutes);
+  app.use("/api/comments", () => {
+    const comments = commentModel;
+  });
   app.use("/api/users", usersRoutes);
 };
 

@@ -8,6 +8,7 @@ function DetailedTreatmentWeek({ weekDetails }) {
         weekDetails.exercises.map((exercise) => {
           return <p>{exercise.description}</p>;
         })}
+      {weekDetails.comments}
     </div>
   );
 }
