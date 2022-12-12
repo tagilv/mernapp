@@ -48,7 +48,7 @@ function Week() {
       ) : (
         <p>loading</p>
       )}
-      <Comments />
+      <Comments weekDetails={weekDetails} />
     </>
   );
 }

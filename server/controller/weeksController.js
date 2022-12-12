@@ -15,6 +15,8 @@ const getAllWeeks = async (req, res) => {
       })
       .populate({ path: "exercises" })
       .exec();
+    // .populate({ path: "comments" });
+    // .exec();
     console.log("allWeeks:>>", allWeeks);
     res.status(200).json({
       numberOfWeeks: allWeeks.length,
@@ -38,6 +40,7 @@ const getWeeksByWeek = async (req, res) => {
     const requestedWeek = await weekModel
       .find({ week: week })
       .populate({ path: "exercises", select: ["name", "description"] })
+
       .exec();
     console.log("requestedWeek>>", requestedWeek);
     if (requestedWeek.length === 0) {
@@ -61,3 +64,33 @@ const getWeeksByWeek = async (req, res) => {
 
 // Note: name exports since there will be several functions here. Import it back in weeksRoutes.
 export { getAllWeeks, getWeeksByWeek };
+
+// const getWeeksByWeek = async (req, res) => {
+//   console.log("req.params>>", req.params);
+//   console.log("req.query>>", req.query);
+//   // const { week } = req.params;
+//   const week = req.params.week;
+//   try {
+//     const requestedWeek = await weekModel
+//       .find({ week: week })
+//       .populate({ path: "exercises", select: ["name", "description"] })
+//       .exec();
+//     console.log("requestedWeek>>", requestedWeek);
+//     if (requestedWeek.length === 0) {
+//       res.status(202).json({
+//         message: "No week with this number",
+//       });
+//     } else {
+//       res.json({
+//         requestedWeek,
+//         number: requestedWeek.length,
+//       });
+//     }
+//   } catch (error) {
+//     console.log("error getting weeks>>", error);
+//     res.status(500).json({
+//       error: error.name,
+//       message: "server error",
+//     });
+//   }
+// };
