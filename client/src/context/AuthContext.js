@@ -6,7 +6,7 @@ import getToken from "../utils/getToken.js";
 
 export const AuthContext = createContext();
 
-//3 Create provider
+//3 Create providers
 
 export const AuthContextProvider = ({ children }) => {
   console.log("authcontext run");
@@ -104,34 +104,39 @@ export const AuthContextProvider = ({ children }) => {
 
   const getProfile = async () => {
     const token = getToken();
-    // console.log("Profile loading");
-    // if (token) {
-    //   setError(null);
-    // }
 
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
+    if (token) {
+      // console.log("Profile loading");
+      // if (token) {
+      //   setError(null);
+      // }
 
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/profile",
-        requestOptions
-      );
-      const result = await response.json();
-      console.log("profile result", result);
-      setUser(result);
-      // Need to add the below when adding proteced routes to give time to get user
-      // setIsLogged(true);
-    } catch (error) {
-      // Need to add the below when adding proteced routes to give time to get user
-      // setIsLogged(true);
-      console.log("Error getting user profile", error);
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/users/profile",
+          requestOptions
+        );
+        const result = await response.json();
+        console.log("profile result", result);
+        setUser(result);
+        // Need to add the below when adding proteced routes to give time to get user
+        // setIsLogged(true);
+      } catch (error) {
+        // Need to add the below when adding proteced routes to give time to get user
+        // setIsLogged(true);
+        console.log("Error getting user profile", error);
+      }
+    } else {
+      console.log("You need to log in");
     }
   };
 

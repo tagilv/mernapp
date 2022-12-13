@@ -12,6 +12,7 @@ function Week() {
 
   // Use Params
   const { week } = useParams();
+  console.log("weeeeeeek", week);
 
   // Here I need to fetch again
 
