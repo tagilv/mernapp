@@ -40,7 +40,14 @@ const getWeeksByWeek = async (req, res) => {
     const requestedWeek = await weekModel
       .find({ week: week })
       .populate({ path: "exercises", select: ["name", "description"] })
-
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          model: "user",
+          select: "userName email avatarPicture",
+        },
+      })
       .exec();
     console.log("requestedWeek>>", requestedWeek);
     if (requestedWeek.length === 0) {
