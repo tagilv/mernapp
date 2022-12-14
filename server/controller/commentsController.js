@@ -26,47 +26,38 @@ const createComment = async (req, res) => {
         { new: true }
       );
       console.log("newComment", newComment);
+      //
       res.status(201).json({
-        message: "comment saved and added to week",
-        comment: newComment,
+        message: "success saving comment to week",
+        // This way you update the front end state accordign to hat is in your bacend db
       });
     }
     // if object id is in new object, go to weeks collection and update the array, find week and push to cometns
   } catch (error) {
+    res.status(500).json({
+      message: "error saving comment to week",
+    });
     console.log(error);
   }
 };
 
-export { createComment };
+const deleteComment = async (req, res) => {
+  const { _id } = req.user;
+  const { comment } = req.body;
 
-// CREATE COMMENT
+  try {
+    const deleteComment = await commentModel.updateOne(
+      { _id: 1 },
+      { $pull: { comments: comment } }
+    );
+    console.log("Comment deleted?");
+    res.status(201).json({
+      message: "XX",
+      comment: "XX",
+    });
+  } catch (error) {
+    console.log("error deleting the comment", error);
+  }
+};
 
-// const createComment = async (req, res) => {
-//   // objctid lives in _id
-//   const { _id } = req.user;
-//   const { comment } = req.body;
-//   console.log("req.body in comments controller", req.body);
-//   console.log("req.user in comments controller", req.user);
-
-//   try {
-//     const newComment = await commentModel.create({
-//       // Using whats in the model so need to put author there
-//       author: _id,
-//       comment: "Funkar nu?",
-//     });
-//     if (newComment) {
-//       const savedComment = await weekModel.findOne({
-//         id: _id,
-//         $push: { comments: comment },
-//         new: true,
-//       });
-//       console.log("savedComment", savedComment);
-//       // const savedComment = await newComment.save();
-//     }
-//     // if opera , object id is in new object, so go to weeks collection  and uptate the array, find week and push to cometns
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// export { createComment };
+export { createComment, deleteComment };
