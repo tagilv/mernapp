@@ -43,20 +43,29 @@ const createComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   const { _id } = req.user;
-  const { comment } = req.body;
+  const { commentId } = req.body;
 
   try {
-    const deleteComment = await commentModel.updateOne(
-      { _id: 1 },
-      { $pull: { comments: comment } }
-    );
-    console.log("Comment deleted?");
+    // const deleteComment = await commentModel.updateOne(
+    //   { _id: weeksId },
+    //   { $pull: { comments:commentsId} },
+    //   { new: true }
+    // );
+    const deleteComment = await commentModel.findOneAndDelete({
+      _id: commentId,
+    });
+    if (deleteComment) {
+      //remove comment from week model
+    }
+    console.log("Comment deleted?", deleteComment);
     res.status(201).json({
-      message: "XX",
-      comment: "XX",
+      message: "Comment deleted?",
     });
   } catch (error) {
     console.log("error deleting the comment", error);
+    res.status(201).json({
+      message: "error deleting the comment",
+    });
   }
 };
 

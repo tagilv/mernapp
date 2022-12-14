@@ -3,41 +3,26 @@ import { useLocation, useParams } from "react-router-dom";
 import Comments from "../components/Comments.js";
 import DetailedTreatmentWeek from "../components/DetailedTreatmentWeek.js";
 
+import { getWeekDetails } from "../utils/getComments.js";
+
 function Week() {
-  const data = useLocation();
-  // console.log("data.state", data.state);
-  // console.log("data.state.data", data.state.data);
-  // console.log("data.state.data._id", data.state.data._id);
-  // let individualWeekId = data.state.data._id;
-
-  // Use Params
   const { week } = useParams();
-  console.log("weeeeeeek", week);
-
-  // Here I need to fetch again
-
+  console.log("week in week component>>>>>", week);
   const [weekDetails, setWeekDetails] = useState("");
 
+  // Need to send the week as argument here
+  const getWeekDetailsHelper = async (week) => {
+    let data = await getWeekDetails(week);
+    console.log("data from getComments.js helper/fetch", data);
+    setWeekDetails(data.requestedWeek[0]);
+  };
+
   useEffect(() => {
-    const getWeekDetails = async () => {
-      console.log(week);
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/weeks/all/${week}`
-        );
-        const results = await response.json();
-        console.log("results>>", results);
-        console.log("results.requestedWeek>>", results.requestedWeek);
-        console.log("results.requestedWeek[0]>>", results.requestedWeek[0]);
-        setWeekDetails(results.requestedWeek[0]);
-        // console.log("results.data>>", results.data);
-        console.log("WEEK DATA WITH COMMENTS?", results.requestedWeek[0]);
-      } catch (error) {
-        console.log("error fetching weekly excercises>>", error);
-      }
-    };
-    getWeekDetails();
+    // Need to send the week as argument here
+    getWeekDetailsHelper(week);
   }, []);
+
+  // Want to use this when you post the, move separate and export and then call
   console.log("weekDetails>>", weekDetails);
 
   return (

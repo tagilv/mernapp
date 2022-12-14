@@ -46,18 +46,26 @@ function Comments({ weekDetails }) {
         requestOptions
       );
       const result = await response.json();
-
-      // Idea, set it with commentText instead of result?
       setCommentInput("");
+
+      // call get week detials
     } catch (error) {
       console.log("error adding comment", error);
     }
   };
 
+  // DELETE
+
+  const handleDelete = async () => {
+    // SHOULD PASS THE COMMENT ID HERE?
+    const commentId = weekDetails.comments[0]._id;
+    console.log("commentId", commentId);
+  };
+
   return (
     <div>
       <form onClick={handleSubmitComment}>
-        <label for="">Add Comment</label>
+        <label for=""></label>
         <input type="text" onChange={handleCommentInput} value={commentInput} />
         <button>Add comment</button>
       </form>
@@ -66,6 +74,7 @@ function Comments({ weekDetails }) {
         weekDetails.comments.map((comments) => {
           return <p>{comments.text}</p>;
         })}
+      <span onClick={handleDelete}>Delete comment</span>
     </div>
   );
 }
