@@ -55,11 +55,37 @@ function Comments({ weekDetails }) {
   };
 
   // DELETE
-
+  // NEED TO PASS THE commentId here?
   const handleDelete = async () => {
+    const token = getToken();
     // SHOULD PASS THE COMMENT ID HERE?
+
     const commentId = weekDetails.comments[0]._id;
     console.log("commentId", commentId);
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("commentId", commentId);
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/comments/delete",
+        requestOptions
+      );
+      const result = await response.json();
+    } catch (error) {
+      console.log("error deleting comment", error);
+    }
   };
 
   return (
