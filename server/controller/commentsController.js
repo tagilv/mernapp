@@ -43,20 +43,20 @@ const createComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   const { _id } = req.user;
-  const { commentId } = req.body;
+  const { commentId, weekId } = req.body;
 
   try {
-    // const deleteComment = await commentModel.updateOne(
-    //   { _id: weeksId },
-    //   { $pull: { comments:commentsId} },
-    //   { new: true }
-    // );
     const deleteComment = await commentModel.findOneAndDelete({
       _id: commentId,
     });
     if (deleteComment) {
       //remove comment from week
     }
+    const deleteCommentFromWeek = await weekModel.updateOne(
+      { _id: weekId },
+      { $pull: { comments: commentId } },
+      { new: true }
+    );
     console.log("Comment deleted?", deleteComment);
     res.status(201).json({
       message: "Comment deleted?",
@@ -69,4 +69,31 @@ const deleteComment = async (req, res) => {
   }
 };
 
-export { createComment, deleteComment };
+const editComment = async (req, res) => {
+  const { _id } = req.user;
+  const { commentId } = req.body;
+  const { editedComment } = req.body;
+
+  console.log("req.body for edit", req.body);
+  console.log("req.user for edit", req.user);
+
+  try {
+    const findAndEditComment = await commentModel.findByIdAndUpdate(
+      // After commentID I can put an object and specify the properties I want to update in the comment
+      commentId,
+      { comment: editedComment },
+      { new: true }
+    );
+    console.log("Succesfully updated comment", editedComment);
+    res.status(201).json({
+      message: "Succesfully updated comment",
+    });
+  } catch (error) {
+    console.log("error updating comment", error);
+    res.status(500).json({
+      message: "Not succesfully updated comment",
+    });
+  }
+};
+
+export { createComment, deleteComment, editComment };

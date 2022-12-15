@@ -89,6 +89,7 @@ function Comments() {
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("commentId", commentId);
+    urlencoded.append("weekId", weekId);
 
     const requestOptions = {
       method: "DELETE",
@@ -138,7 +139,7 @@ function Comments() {
             <div className="w-full md:w-full px-3 mb-2 mt-2">
               <div className="bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700">
                 <p>{comment.comment}</p>
-                {/* use the e and call back to pass data  */}
+                {/* use the e and call back function to pass data back to the handleDelete function */}
                 <span onClick={(e) => handleDelete(comment._id)}>
                   Delete comment
                 </span>
