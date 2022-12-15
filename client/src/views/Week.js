@@ -3,23 +3,17 @@ import { useLocation, useParams } from "react-router-dom";
 import Comments from "../components/Comments.js";
 import DetailedTreatmentWeek from "../components/DetailedTreatmentWeek.js";
 
-import { getWeekDetails } from "../utils/getComments.js";
+import useWeekDetails from "../utils/useWeekDetails.js";
 
 function Week() {
   const { week } = useParams();
   console.log("week in week component>>>>>", week);
-  const [weekDetails, setWeekDetails] = useState("");
 
-  // Need to send the week as argument here
-  const getWeekDetailsHelper = async (week) => {
-    let data = await getWeekDetails(week);
-    console.log("data from getComments.js helper/fetch", data);
-    setWeekDetails(data.requestedWeek[0]);
-  };
+  // Create Custom hook
+  const { weekDetails, getWeekDetails } = useWeekDetails();
 
   useEffect(() => {
-    // Need to send the week as argument here
-    getWeekDetailsHelper(week);
+    getWeekDetails(week);
   }, []);
 
   // Want to use this when you post the, move separate and export and then call

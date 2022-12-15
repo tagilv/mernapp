@@ -55,7 +55,7 @@ const deleteComment = async (req, res) => {
       _id: commentId,
     });
     if (deleteComment) {
-      //remove comment from week model
+      //remove comment from week
     }
     console.log("Comment deleted?", deleteComment);
     res.status(201).json({
