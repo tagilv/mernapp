@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import getToken from "../utils/getToken";
 import useWeekDetails from "../utils/useWeekDetails.js";
 import { useParams } from "react-router-dom";
+import InlineEdit from "./EditComment";
 
 function Comments() {
   // Get weekId from the front end from weekDetials._id (then use this in the to append it to the urlencoded)
@@ -112,6 +113,53 @@ function Comments() {
     }
   };
 
+  // EDIT
+
+  const handleEdit = async (commentId, editedComment) => {
+    console.log("editedComment", editedComment);
+    console.log("commentId", commentId);
+    const token = getToken();
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("commentId", commentId);
+    urlencoded.append("editedComment", editedComment);
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/comments/edit",
+        requestOptions
+      );
+      const result = response.json();
+      getWeekDetails(week);
+      setEditCommentId(null);
+      setEditComment("");
+    } catch (error) {
+      console.log("error updating the comments", error);
+    }
+  };
+
+  const [editComment, setEditComment] = useState("");
+  const [editCommentId, setEditCommentId] = useState(null);
+  const handleEditToggle = (commentId, editCommentText) => {
+    setEditCommentId(commentId);
+    setEditComment(editCommentText);
+
+    console.log("commentId!!", commentId);
+    // setEditToggle((prev) => !prev);
+    console.log("edit text");
+  };
+
   return (
     <div>
       <form onClick={handleSubmitComment}>
@@ -137,13 +185,35 @@ function Comments() {
         weekDetails.comments.map((comment) => {
           return (
             <div className="w-full md:w-full px-3 mb-2 mt-2">
-              <div className="bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700">
-                <p>{comment.comment}</p>
-                {/* use the e and call back function to pass data back to the handleDelete function */}
-                <span onClick={(e) => handleDelete(comment._id)}>
-                  Delete comment
-                </span>
+              <div>
+                {editCommentId !== comment._id ? (
+                  <div
+                    onClick={(e) =>
+                      handleEditToggle(comment._id, comment.comment)
+                    }
+                    className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+                    hover:bg-white cursor-text"
+                  >
+                    <p>{comment.comment}</p>
+                  </div>
+                ) : (
+                  <textarea
+                    onChange={(e) => setEditComment(e.target.value)}
+                    className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+                    hover:bg-white cursor-text"
+                  >
+                    {editComment}
+                  </textarea>
+                )}
               </div>
+              {/* Take value of the text with e.target.value */}
+              <span onClick={(e) => handleEdit(comment._id, editComment)}>
+                Save edit
+              </span>
+              {/* use the e and call back function to pass data back to the handleDelete function */}
+              <span onClick={(e) => handleDelete(comment._id)}>
+                Delete comment
+              </span>
             </div>
           );
         })}
@@ -168,3 +238,25 @@ export default Comments;
 //     <span onClick={handleDelete}>Delete comment</span>
 //   </div>
 // );
+
+//   !editToggle && comment._id ? (
+//     <div
+//       onClick={(e) => handleEditToggle(comment._id)}
+//       // onClick={(e) => handleEdit(comment._id)
+//       className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+//                     hover:bg-white cursor-text"
+//     >
+//       <p>{comment.comment}</p>
+//       {/* <button onClick={handleEditToggle} type="">
+//                       Open edit text
+//                     </button> */}
+//     </div>
+//   ) : (
+//     <textarea
+//       className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+//                     hover:bg-white cursor-text"
+//     >
+//       None
+//     </textarea>
+//   );
+// }

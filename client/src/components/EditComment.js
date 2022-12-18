@@ -1,11 +1,30 @@
-// import React from 'react'
+// import { useState } from "react";
 
-// function EditComment() {
+// const InlineEdit = ({ value, setValue }) => {
+//   const [editingValue, setEditingValue] = useState(value);
+
+//   const onChange = (event) => setEditingValue(event.target.value);
+
+//   const onBlur = (event) => {
+//     setValue(event.target.value);
+//   };
+
+//   const onKeyDown = (event) => {
+//     if (event.key === "Enter" || event.key === "Escape") {
+//       event.target.blur();
+//     }
+//   };
+
 //   return (
-//     <div>
+//     <input
+//       type="text"
+//       aria-label="Field name"
+//       value={editingValue}
+//       onChange={onChange}
+//       onKeyDown={onKeyDown}
+//       onBlur={onBlur}
+//     />
+//   );
+// };
 
-//     </div>
-//   )
-// }
-
-// export default EditComment
+// export default InlineEdit;

@@ -2,9 +2,10 @@
 import express from "express";
 import { getAllWeeks, getWeeksByWeek } from "../controller/weeksController.js";
 const router = express.Router();
+import jwtAuth from "../middlewares/jwtAuth.js";
 
-router.get("/all", getAllWeeks);
+router.get("/all", jwtAuth, getAllWeeks);
 
-router.get("/all/:week", getWeeksByWeek);
+router.get("/all/:week", jwtAuth, getWeeksByWeek);
 
 export default router;

@@ -47,23 +47,29 @@ const deleteComment = async (req, res) => {
 
   try {
     const deleteComment = await commentModel.findOneAndDelete({
+      // Add autohr is here to prevent users to delte other users comments
+      author: _id,
       _id: commentId,
     });
     if (deleteComment) {
-      //remove comment from week
+      console.log("deleteComment", deleteComment);
+      const deleteCommentFromWeek = await weekModel.updateOne(
+        { _id: weekId },
+        { $pull: { comments: commentId } },
+        { new: true }
+      );
+      console.log("Comment deleted?", deleteComment);
+      res.status(201).json({
+        message: "Comment deleted?",
+      });
+    } else {
+      res.status(404).json({
+        message: "Comment to delete not found",
+      });
     }
-    const deleteCommentFromWeek = await weekModel.updateOne(
-      { _id: weekId },
-      { $pull: { comments: commentId } },
-      { new: true }
-    );
-    console.log("Comment deleted?", deleteComment);
-    res.status(201).json({
-      message: "Comment deleted?",
-    });
   } catch (error) {
     console.log("error deleting the comment", error);
-    res.status(201).json({
+    res.status(500).json({
       message: "error deleting the comment",
     });
   }
@@ -78,12 +84,20 @@ const editComment = async (req, res) => {
   console.log("req.user for edit", req.user);
 
   try {
-    const findAndEditComment = await commentModel.findByIdAndUpdate(
+    // Chnage to findOneAndUpdate (instead of findbyid) findOne accepts more arg than just id (as findbyId)
+    const findAndEditComment = await commentModel.findOneAndUpdate(
       // After commentID I can put an object and specify the properties I want to update in the comment
-      commentId,
+      { _id: commentId, author: _id },
       { comment: editedComment },
       { new: true }
     );
+    // Can use !findAndEditComment and avoid the else
+    if (!findAndEditComment) {
+      res.status(201).json({
+        message: "Comment to update not found",
+      });
+      return;
+    }
     console.log("Succesfully updated comment", editedComment);
     res.status(201).json({
       message: "Succesfully updated comment",
