@@ -3,18 +3,11 @@ import { Link } from "react-router-dom";
 
 function TreatmentWeek({ treatmentWeek }) {
   return (
-    // <>
-    //   {treatmentWeek.exercises?.map((excercise) => {
-    //     return (
-    <div style={{ border: "solid" }}>
-      go to week {treatmentWeek.week}
-      {/* <Link to={treatmentWeek._id}>Week {treatmentWeek.week}</Link> */}
-      {/* <p>{treatmentWeek._id}</p> */}
-      {/* <p>{excercise.description}</p> */}
+    <div className="flex justify-center py-6">
+      <div className="block p-6 rounded-lg shadow-lg bg-white w-5/6">
+        Treatment Week {treatmentWeek.week}
+      </div>
     </div>
-    //     );
-    //   })}
-    // </>
   );
 }
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import getToken from "../utils/getToken";
 import useWeekDetails from "../utils/useWeekDetails.js";
 import { useParams } from "react-router-dom";
-import InlineEdit from "./EditComment";
 
 function Comments() {
   // Get weekId from the front end from weekDetials._id (then use this in the to append it to the urlencoded)
@@ -13,14 +12,6 @@ function Comments() {
   const [commentInput, setCommentInput] = useState("");
 
   const { week } = useParams();
-
-  // const getWeekDetailsHelper = async (week) => {
-  //   let data = await getWeekDetails(week);
-  //   console.log("data from getComments.js helper/fetch", data);
-  //   setCommentInput(data.requestedWeek[0]);
-  //   // console.log("data.requestedWeek", data.requestedWeek);
-  //   // console.log("data.requestedWeek[0]", data.requestedWeek[0]);
-  // };
 
   useEffect(() => {
     getWeekDetails(week);
@@ -163,7 +154,7 @@ function Comments() {
   return (
     <div>
       <form onClick={handleSubmitComment}>
-        <div>
+        <div className="flex-row justify-center py-6 px-10">
           {/* chat */}
           <h4 className="px-4 pt-3 text-md">Chat to your nurse here</h4>
           <div className="w-full md:w-full px-3 mb-2 mt-2">
@@ -184,7 +175,7 @@ function Comments() {
       {weekDetails &&
         weekDetails.comments.map((comment) => {
           return (
-            <div className="w-full md:w-full px-3 mb-2 mt-2">
+            <div className="flex-row justify-center py-6 px-10">
               <div>
                 {editCommentId !== comment._id ? (
                   <div
