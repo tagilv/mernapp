@@ -16,14 +16,14 @@ dotenv.config();
 // Creates express app and stores in app constant:
 const app = express();
 
-// Listen for requests:
-const port = process.env.PORT || 5000;
-
 const corsOptions = {
   // origin: "http://localhost:3000",
   // From the front end
-  origin: "https://mernapp-azfy.vercel.app",
+  origin: "http://mernapp-azfy.vercel.app",
 };
+
+// Listen for requests:
+const port = process.env.PORT || 5000;
 
 const addMiddleWares = () => {
   app.use(express.json());
@@ -35,7 +35,7 @@ const addMiddleWares = () => {
   // const corsOptions = {
   //   // origin: "http://localhost:3000",
   //   // From the front end
-  //   origin: "https://mernapp-azfy.vercel.app",
+  //   origin: "http://mernapp-azfy.vercel.app",
   // };
   app.use(cors(corsOptions));
   cloudinaryConfig();
