@@ -19,6 +19,12 @@ const app = express();
 // Listen for requests:
 const port = process.env.PORT || 5000;
 
+const corsOptions = {
+  // origin: "http://localhost:3000",
+  // From the front end
+  origin: "https://mernapp-azfy.vercel.app",
+};
+
 const addMiddleWares = () => {
   app.use(express.json());
   app.use(
@@ -26,11 +32,11 @@ const addMiddleWares = () => {
       extended: true,
     })
   );
-  const corsOptions = {
-    // origin: "http://localhost:3000",
-    // From the front end
-    origin: "https://mernapp-azfy.vercel.app",
-  };
+  // const corsOptions = {
+  //   // origin: "http://localhost:3000",
+  //   // From the front end
+  //   origin: "https://mernapp-azfy.vercel.app",
+  // };
   app.use(cors(corsOptions));
   cloudinaryConfig();
   app.use(passport.initialize());
