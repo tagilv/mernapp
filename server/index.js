@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 const corsOptions = {
   // origin: "http://localhost:3000",
   // credentials: true,
-  // From the front end
+  // From the front end, this url can fetch dat for me
   origin: "https://mernapp-azfy.vercel.app",
   credentials: true,
 };
