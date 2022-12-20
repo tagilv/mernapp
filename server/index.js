@@ -16,12 +16,6 @@ dotenv.config();
 // Creates express app and stores in app constant:
 const app = express();
 
-const corsOptions = {
-  // origin: "http://localhost:3000",
-  // From the front end
-  origin: "http://mernapp-azfy.vercel.app",
-};
-
 // Listen for requests:
 const port = process.env.PORT || 5000;
 
@@ -32,11 +26,11 @@ const addMiddleWares = () => {
       extended: true,
     })
   );
-  // const corsOptions = {
-  //   // origin: "http://localhost:3000",
-  //   // From the front end
-  //   origin: "http://mernapp-azfy.vercel.app",
-  // };
+  const corsOptions = {
+    // origin: "http://localhost:3000",
+    // From the front end
+    origin: "http://mernapp-azfy.vercel.app",
+  };
   app.use(cors(corsOptions));
   cloudinaryConfig();
   app.use(passport.initialize());

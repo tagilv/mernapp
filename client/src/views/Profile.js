@@ -3,7 +3,8 @@ import { AuthContext } from "../context/AuthContext";
 import getToken from "../utils/getToken.js";
 
 function Profile() {
-  const { userLogin, setUserLogin, getProfile } = useContext(AuthContext);
+  const { userLogin, setUserLogin, getProfile, server } =
+    useContext(AuthContext);
   const [selectedFile, setSelectedFile] = useState({});
   const [error, setError] = useState(null);
 
@@ -44,7 +45,8 @@ function Profile() {
     };
 
     const response = await fetch(
-      "http://localhost:5000/api/users/uploadimage",
+      `${server}/api/users/uploadimage`,
+      // "http://localhost:5000/api/users/uploadimage",
       requestOptions
     );
     const result = await response.json();
@@ -86,7 +88,8 @@ function Profile() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/update",
+        `${server}/api/users/update`,
+        // "http://localhost:5000/api/users/update",
         requestOptions
       );
       const updatedUser = await response.json();

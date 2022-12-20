@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import TreatmentWeek from "../components/TreatmentWeek.js";
 import getToken from "../utils/getToken.js";
 
 import { Box, Heading, Text } from "@chakra-ui/react";
+import { AuthContext } from "../context/AuthContext.js";
 
 function Weeks() {
   const token = getToken();
+  const { server } = useContext(AuthContext);
   const [treatmentWeeks, setTreatmentWeeks] = useState("");
   const [week, setWeek] = useState(null);
   const getWeeks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/weeks/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${server}/api/weeks/all`,
+        // "http://localhost:5000/api/weeks/all",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       const results = await response.json();
       console.log("results>>", results);
