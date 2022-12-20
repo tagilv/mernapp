@@ -1,12 +1,10 @@
-//1 Import Hook
 import { createContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken.js";
 
-//2 Create Context/Store
+// Create variable with the server info
+const server = "http://mernapp-8c92z90hd-tagilv.vercel.app";
 
 export const AuthContext = createContext();
-
-//3 Create providers
 
 export const AuthContextProvider = ({ children }) => {
   console.log("authcontext run");
@@ -43,7 +41,8 @@ export const AuthContextProvider = ({ children }) => {
     };
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/signup",
+        `${server}/api/users/signup`,
+        // "http://localhost:5000/api/users/signup",
         requestOptions
       );
       const result = await response.json();
@@ -72,6 +71,7 @@ export const AuthContextProvider = ({ children }) => {
     };
     try {
       const response = await fetch(
+        `${server}/api/users/login`,
         "http://localhost:5000/api/users/login",
         requestOptions
       );
@@ -122,6 +122,7 @@ export const AuthContextProvider = ({ children }) => {
 
       try {
         const response = await fetch(
+          `${server}/api/users/profile`,
           "http://localhost:5000/api/users/profile",
           requestOptions
         );
