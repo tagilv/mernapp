@@ -2,11 +2,12 @@ import { createContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken.js";
 
 // Create variable with the server info
-const server = "http://mernapp-8c92z90hd-tagilv.vercel.app";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
+  const server = "http://mernapp-8c92z90hd-tagilv.vercel.app";
+
   console.log("authcontext run");
 
   // USER state created here to be to set the user after login and then export value and use in other components in application
@@ -157,6 +158,7 @@ export const AuthContextProvider = ({ children }) => {
         setUser,
         logout,
         getProfile,
+        server,
         // Need to add the below when adding proteced routes to give time to get user
         // isLogged,
       }}
