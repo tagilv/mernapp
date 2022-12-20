@@ -72,7 +72,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const response = await fetch(
         `${server}/api/users/login`,
-        "http://localhost:5000/api/users/login",
+        // "http://localhost:5000/api/users/login",
         requestOptions
       );
       const result = await response.json();
@@ -123,7 +123,7 @@ export const AuthContextProvider = ({ children }) => {
       try {
         const response = await fetch(
           `${server}/api/users/profile`,
-          "http://localhost:5000/api/users/profile",
+          // "http://localhost:5000/api/users/profile",
           requestOptions
         );
         const result = await response.json();

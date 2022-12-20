@@ -29,7 +29,7 @@ const addMiddleWares = () => {
   const corsOptions = {
     // origin: "http://localhost:3000",
     // From the front end
-    origin: "http://mernapp-azfy.vercel.app",
+    origin: "https://mernapp-azfy.vercel.app",
   };
   app.use(cors(corsOptions));
   cloudinaryConfig();
