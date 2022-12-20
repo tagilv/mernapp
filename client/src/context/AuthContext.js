@@ -6,7 +6,7 @@ import getToken from "../utils/getToken.js";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const server = "http://mernapp-8c92z90hd-tagilv.vercel.app";
+  const server = "https://mernapp-8c92z90hd-tagilv.vercel.app";
 
   console.log("authcontext run");
 
