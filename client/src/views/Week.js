@@ -16,7 +16,6 @@ function Week() {
 
   return (
     <>
-      <h2>Week Comp</h2>
       {weekDetails ? (
         <DetailedTreatmentWeek weekDetails={weekDetails} />
       ) : (

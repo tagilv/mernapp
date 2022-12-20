@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken";
 import useWeekDetails from "../utils/useWeekDetails.js";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Comments() {
+  const { server } = useContext(AuthContext);
   // Get weekId from the front end from weekDetials._id (then use this in the to append it to the urlencoded)
 
   const { setWeekDetails, weekDetails, getWeekDetails } = useWeekDetails();
@@ -54,7 +56,8 @@ function Comments() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/comments/create",
+        `${server}/api/comments/create`,
+        // "http://localhost:5000/api/comments/create",
         requestOptions
       );
       const result = await response.json();
@@ -94,7 +97,8 @@ function Comments() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/comments/delete",
+        `${server}/api/comments/delete`,
+        // "http://localhost:5000/api/comments/delete",
         requestOptions
       );
       const result = await response.json();
@@ -130,7 +134,8 @@ function Comments() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/comments/edit",
+        `${server}/api/comments/edit`,
+        // "http://localhost:5000/api/comments/edit",
         requestOptions
       );
       const result = response.json();
