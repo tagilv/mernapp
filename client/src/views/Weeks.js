@@ -1,8 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import TreatmentWeek from "../components/TreatmentWeek.js";
 import getToken from "../utils/getToken.js";
+
+import { Box, Heading, Text } from "@chakra-ui/react";
 
 function Weeks() {
   const token = getToken();
@@ -29,11 +31,33 @@ function Weeks() {
 
   return (
     <>
-      <div className="App h-screen">
+      <Box
+        as="section"
+        bg="lightblue"
+        pt="28px"
+        pb="28"
+        px="8"
+        textAlign={["left", "left", "center"]}
+      >
+        <Heading
+          fontWeight="extrabold"
+          fontSize={["3xl", "3xl", "5xl"]}
+          m="8px"
+        >
+          Your 8 week excercise Plan
+        </Heading>
+        <Text
+          fontWeight="small"
+          fontSize={["lg", "lg", "2xl"]}
+          pt="4px"
+          m="8px"
+        >
+          Chat to your nurse found below
+        </Text>
         {treatmentWeeks &&
           treatmentWeeks.map((treatmentWeek, i) => {
             return (
-              <Link
+              <NavLink
                 to={`${treatmentWeek.week}`}
                 state={{ data: treatmentWeek }}
               >
@@ -41,10 +65,10 @@ function Weeks() {
                   key={treatmentWeek._id}
                   treatmentWeek={treatmentWeek}
                 />
-              </Link>
+              </NavLink>
             );
           })}
-      </div>
+      </Box>
     </>
   );
 }
