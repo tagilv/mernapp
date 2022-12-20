@@ -8,6 +8,8 @@ function Comments() {
 
   const { setWeekDetails, weekDetails, getWeekDetails } = useWeekDetails();
 
+  console.log("weekDetails", weekDetails);
+
   const weekId = weekDetails._id;
   const [commentInput, setCommentInput] = useState("");
 
