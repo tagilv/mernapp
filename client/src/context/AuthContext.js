@@ -6,7 +6,10 @@ import getToken from "../utils/getToken.js";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const server = "https://mern-app-server.vercel.app";
+  const server =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000"
+      : "https://mern-app-server.vercel.app";
 
   console.log("authcontext run");
 

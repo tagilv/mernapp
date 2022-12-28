@@ -30,8 +30,9 @@ function Navigation() {
   return (
     <Box>
       <Flex
-        bg="gray.300"
-        color="black"
+        bg="#6B46C1"
+        // colorScheme="purple"
+        color="white"
         minH="60px"
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -78,9 +79,10 @@ function Navigation() {
               <Button
                 as="a"
                 fontSize="sm"
-                fontWeight={400}
+                fontWeight={800}
                 variant="link"
                 href="#"
+                color="white"
               >
                 <NavLink to="/profile">Profile</NavLink>
               </Button>
@@ -146,21 +148,24 @@ const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={4}>
       <Box>
-        <NavLink
-          to="/weeks"
-          p={3}
-          fontSize={"sm"}
-          fontWeight={700}
-          color={linkColor}
+        <Button
+          as="a"
+          fontSize="sm"
+          fontWeight={800}
+          variant="link"
+          href="#"
+          color="white"
         >
-          Treatment Plan
-        </NavLink>
-        {/* <NavLink p={3} fontSize={"sm"} fontWeight={700} color={linkColor}>
-          option 2
-        </NavLink>
-        <NavLink p={3} fontSize={"sm"} fontWeight={700} color={linkColor}>
-          option 3
-        </NavLink> */}
+          <NavLink
+            to="/weeks"
+            p={3}
+            fontSize={"sm"}
+            fontWeight={100}
+            color={linkColor}
+          >
+            Treatment Plan
+          </NavLink>
+        </Button>
       </Box>
     </Stack>
   );

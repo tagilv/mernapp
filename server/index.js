@@ -19,11 +19,15 @@ const app = express();
 // Listen for requests:
 const port = process.env.PORT || 5000;
 
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 const corsOptions = {
-  // origin: "http://localhost:3000",
+  origin:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://mernapp-azfy.vercel.app",
   // credentials: true,
   // From the front end, this url can fetch dat for me
-  origin: "https://mernapp-azfy.vercel.app",
+  // origin: "https://mernapp-azfy.vercel.app",
   credentials: true,
 };
 

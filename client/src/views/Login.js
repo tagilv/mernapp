@@ -23,7 +23,7 @@ function Login() {
       </div>
       <NavLink
         onClick={() => login(email.current.value, password.current.value)}
-        to="/weeks"
+        to="/"
       >
         login
       </NavLink>

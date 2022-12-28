@@ -39,39 +39,33 @@ function Weeks() {
     <>
       <Box
         as="section"
-        bg="lightblue"
+        bg="ofwhite"
         pt="28px"
         pb="28"
-        px="8"
-        textAlign={["left", "left", "center"]}
+        px={["10px", "null", "170px"]}
+        textAlign={["left", "center", "center"]}
       >
         <Heading
           fontWeight="extrabold"
-          fontSize={["3xl", "3xl", "5xl"]}
+          fontSize={["3xl", "4xl", "5xl"]}
           m="8px"
         >
-          Your 8 week excercise Plan
+          Your 8 Week Excercise Plan
         </Heading>
         <Text
           fontWeight="small"
-          fontSize={["lg", "lg", "2xl"]}
+          fontSize={["lg", "xl", "2xl"]}
           pt="4px"
+          pb="8"
           m="8px"
-        >
-          Chat to your nurse found below
-        </Text>
+        ></Text>
         {treatmentWeeks &&
           treatmentWeeks.map((treatmentWeek, i) => {
             return (
-              <NavLink
-                to={`${treatmentWeek.week}`}
-                state={{ data: treatmentWeek }}
-              >
-                <TreatmentWeek
-                  key={treatmentWeek._id}
-                  treatmentWeek={treatmentWeek}
-                />
-              </NavLink>
+              <TreatmentWeek
+                key={treatmentWeek._id}
+                treatmentWeek={treatmentWeek}
+              />
             );
           })}
       </Box>
