@@ -29,7 +29,7 @@ function TreatmentWeek({ treatmentWeek }) {
       <Image
         objectFit="cover"
         maxW={{ base: "100%", sm: "200px" }}
-        maxH={{ base: "100%", sm: "200px" }}
+        maxH={{ base: "100%", sm: "180px" }}
         src={treatmentWeek.exercisesImagesMain[0]}
         alt="Caffe Latte"
         m="10px"
