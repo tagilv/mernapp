@@ -37,37 +37,40 @@ function Weeks() {
 
   return (
     <>
-      <Box
-        as="section"
-        bg="ofwhite"
-        pt="28px"
-        pb="28"
-        px={["10px", "null", "170px"]}
-        textAlign={["left", "center", "center"]}
-      >
-        <Heading
-          fontWeight="extrabold"
-          fontSize={["3xl", "4xl", "5xl"]}
-          m="8px"
+      <Box align={"center"}>
+        <Box
+          as="section"
+          bg="ofwhite"
+          pt="28px"
+          pb="28"
+          maxW={{ base: "90%", md: "80%", lg: "70%" }}
+          textAlign={["left", "center", "center"]}
         >
-          Your 8 Week Excercise Plan
-        </Heading>
-        <Text
-          fontWeight="small"
-          fontSize={["lg", "xl", "2xl"]}
-          pt="4px"
-          pb="8"
-          m="8px"
-        ></Text>
-        {treatmentWeeks &&
-          treatmentWeeks.map((treatmentWeek, i) => {
-            return (
-              <TreatmentWeek
-                key={treatmentWeek._id}
-                treatmentWeek={treatmentWeek}
-              />
-            );
-          })}
+          <Heading
+            lineHeight={1.1}
+            fontWeight={600}
+            fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
+            m="8px"
+          >
+            Your 8 Week Excercise Plan
+          </Heading>
+          <Text
+            fontWeight="small"
+            fontSize={["lg", "xl", "2xl"]}
+            pt="4px"
+            pb="8"
+            m="8px"
+          ></Text>
+          {treatmentWeeks &&
+            treatmentWeeks.map((treatmentWeek, i) => {
+              return (
+                <TreatmentWeek
+                  key={treatmentWeek._id}
+                  treatmentWeek={treatmentWeek}
+                />
+              );
+            })}
+        </Box>
       </Box>
     </>
   );
