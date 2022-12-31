@@ -9,6 +9,12 @@ const weekSchema = new Schema({
     unique: true,
   },
 
+  exercisesImagesMain: {
+    type: Array,
+    required: true,
+    unique: false,
+  },
+
   exercises: [{ type: Schema.Types.ObjectId, ref: "exercise" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "comment" }],
 });

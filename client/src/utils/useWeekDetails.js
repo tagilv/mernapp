@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import getToken from "./getToken";
 
 function useWeekDetails() {
   const [weekDetails, setWeekDetails] = useState("");
   const token = getToken();
 
+  const { server } = useContext(AuthContext);
+
   const getWeekDetails = async (week) => {
     console.log("week>>>>", week);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/weeks/all/${week}`,
+        `${server}/api/weeks/all/${week}`,
+        // `http://localhost:5000/api/weeks/all/${week}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

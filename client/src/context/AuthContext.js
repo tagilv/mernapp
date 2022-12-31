@@ -1,14 +1,16 @@
-//1 Import Hook
 import { createContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken.js";
 
-//2 Create Context/Store
+// Create variable with the server info
 
 export const AuthContext = createContext();
 
-//3 Create providers
-
 export const AuthContextProvider = ({ children }) => {
+  const server =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000"
+      : "https://mern-app-server.vercel.app";
+
   console.log("authcontext run");
 
   // USER state created here to be to set the user after login and then export value and use in other components in application
@@ -43,7 +45,8 @@ export const AuthContextProvider = ({ children }) => {
     };
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/signup",
+        `${server}/api/users/signup`,
+        // "http://localhost:5000/api/users/signup",
         requestOptions
       );
       const result = await response.json();
@@ -72,7 +75,8 @@ export const AuthContextProvider = ({ children }) => {
     };
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/login",
+        `${server}/api/users/login`,
+        // "http://localhost:5000/api/users/login",
         requestOptions
       );
       const result = await response.json();
@@ -122,7 +126,8 @@ export const AuthContextProvider = ({ children }) => {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/api/users/profile",
+          `${server}/api/users/profile`,
+          // "http://localhost:5000/api/users/profile",
           requestOptions
         );
         const result = await response.json();
@@ -156,6 +161,7 @@ export const AuthContextProvider = ({ children }) => {
         setUser,
         logout,
         getProfile,
+        server,
         // Need to add the below when adding proteced routes to give time to get user
         // isLogged,
       }}
