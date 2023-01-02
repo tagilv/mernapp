@@ -9,14 +9,20 @@ import {
   Link,
   useBreakpointValue,
   useDisclosure,
+  useColorModeValue,
+  WrapItem,
+  Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
 
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaBars } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
+
+import Ryggskolan from "../assets/Ryggskolan.png";
 
 function Navigation() {
   const { user } = useContext(AuthContext);
@@ -26,6 +32,8 @@ function Navigation() {
   console.log("location", location.pathname);
 
   const { isOpen, onToggle } = useDisclosure();
+
+  console.log(user.avatarPicture);
 
   return (
     <Box>
@@ -60,7 +68,9 @@ function Navigation() {
             fontFamily="heading"
             color="gray.800"
           >
-            <NavLink to="/">Logo</NavLink>
+            <NavLink to="/">
+              <Image src={Ryggskolan} boxSize="30px" alt="Dan Abramov" />
+            </NavLink>
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -84,7 +94,11 @@ function Navigation() {
                 href="#"
                 color="white"
               >
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/profile">
+                  <WrapItem>
+                    <Avatar size="sm" src={user.avatarPicture} />{" "}
+                  </WrapItem>
+                </NavLink>
               </Button>
 
               <Button
@@ -173,226 +187,154 @@ const DesktopNav = () => {
 
 const MobileNav = () => {
   return (
-    <Stack bg="white" p={3} display={{ md: "none" }}>
-      <Flex
+    <Stack bg="white" display={{ md: "none" }}>
+      <Box p={2} display={{ md: "none" }}>
+        <Stack as={"nav"}>
+          <Link
+            to="profile"
+            as={NavLink}
+            p={3}
+            fontSize={"sm"}
+            fontWeight={800}
+            _hover={{
+              textDecoration: "none",
+              bg: useColorModeValue("gray.200", "gray.700"),
+            }}
+          >
+            Profile
+          </Link>
+          <Link
+            _hover={{
+              textDecoration: "none",
+              bg: useColorModeValue("gray.200", "gray.700"),
+            }}
+            to="weeks"
+            as={NavLink}
+            p={3}
+            fontSize={"sm"}
+            fontWeight={800}
+          >
+            Treatment Plan
+          </Link>
+        </Stack>
+      </Box>
+      {/* <Flex
         flexDirection="column"
         py={2}
-        as={Link}
-        href={"#"}
         justify={"space-between"}
         align={"center"}
       >
-        <NavLink to="profile" as={Link} p={3} fontSize={"sm"} fontWeight={700}>
+        <NavLink
+          to="profile"
+          as={Button}
+          p={3}
+          fontSize={"sm"}
+          fontWeight={800}
+        >
           Profile
         </NavLink>
-        <NavLink to="weeks" as={Link} p={3} fontSize={"sm"} fontWeight={700}>
+        <NavLink to="weeks" as={Button} p={3} fontSize={"sm"} fontWeight={800}>
           Treatment Plan
         </NavLink>
-      </Flex>
+      </Flex> */}
     </Stack>
   );
 };
 
 export default Navigation;
 
-// CHAKRAS
+// POST
 
-// import React, { useContext, useState } from "react";
-// import { Link } from "react-router-dom";
-// import { AuthContext } from "../context/AuthContext";
-// import { FaBars } from "react-icons/fa";
-// import { useLocation } from "react-router-dom";
-
-// // chakra
-// import { Flex, Button, IconButton } from "@chakra-ui/react";
+// import { ReactNode } from "react";
+// import {
+//   Box,
+//   Flex,
+//   Avatar,
+//   HStack,
+//   Link,
+//   IconButton,
+//   Button,
+//   Menu,
+//   MenuButton,
+//   useDisclosure,
+//   useColorModeValue,
+//   Stack,
+// } from "@chakra-ui/react";
 // import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-// function Nav() {
-//   const [display, setDisplay] = useState("none");
+// const Links = ["Treatment Plan", "Profile"];
+
+// const NavLink = ({ children }: { children: ReactNode }) => (
+//   <Link
+//     px={2}
+//     py={2}
+//     rounded={"md"}
+//     _hover={{
+//       textDecoration: "none",
+//       bg: useColorModeValue("gray.200", "gray.700"),
+//     }}
+//     href={"#"}
+//   >
+//     {children}
+//   </Link>
+// );
+
+// export default function Simple() {
+//   const { isOpen, onOpen, onClose } = useDisclosure();
 
 //   return (
-//     <Flex>
-//       <Flex align="center" bgColor="gray.50" position="fixed">
-//         {/* Desktop */}
-//         <Flex display={["none", "none", "flex", "flex"]}>
-//           <Link href="/" passHref>
-//             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-//               Home
-//             </Button>
-//           </Link>
-//           <Link href="/" passHref>
-//             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-//               About
-//             </Button>
-//           </Link>
-//           <Link href="/" passHref>
-//             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-//               Contact
-//             </Button>
-//           </Link>
-//         </Flex>
-//         <IconButton
-//           aria-label="Open Menu"
-//           mt={2}
-//           mr={2}
-//           ml={2}
-//           icon={<HamburgerIcon />}
-//           display={["flex", "flex", "none", "none"]}
-//           onClick={() => setDisplay("flex")}
-//         />
-//       </Flex>
-//       {/* Mobile nav */}
-//       <Flex
-//         w="100vw"
-//         bgColor="gray.50"
-//         zIndex={20}
-//         h="100vh"
-//         pos="fixed"
-//         top="0"
-//         left="0"
-//         overflowY="auto"
-//         flexDir="column"
-//         display={display}
-//       >
-//         <Flex justify="flex-end">
+//     <>
+//       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+//         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
 //           <IconButton
-//             mt={2}
-//             mr={2}
-//             aria-label="Close Menu"
-//             icon={<CloseIcon />}
-//             onClick={() => setDisplay("none")}
+//             size={"md"}
+//             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+//             aria-label={"Open Menu"}
+//             display={{ md: "none" }}
+//             onClick={isOpen ? onClose : onOpen}
 //           />
-//         </Flex>
-//         <Flex flexDir="column" align="center">
-//           <Link href="/" passHref>
-//             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-//               Home
-//             </Button>
-//           </Link>
-//           <Link href="/" passHref>
-//             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-//               About
-//             </Button>
-//           </Link>
-//           <Link href="/" passHref>
-//             <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
-//               Contact
-//             </Button>
-//           </Link>
-//         </Flex>
-//       </Flex>
-//     </Flex>
-//   );
-// }
-
-// export default Nav;
-
-// // Old
-
-// import React, { useContext, useState } from "react";
-// import { Link } from "react-router-dom";
-// import { AuthContext } from "../context/AuthContext";
-// import { FaBars } from "react-icons/fa";
-// import { useLocation } from "react-router-dom";
-
-// function Nav() {
-//   const { user } = useContext(AuthContext);
-//   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-//   const { logout } = useContext(AuthContext);
-
-//   let location = useLocation();
-//   console.log("location", location.pathname);
-
-//   const handleToggle = () => {
-//     setMobileMenuOpen((prev) => !prev);
-//   };
-
-//   // Implement later
-//   // const closeMenu = () => {
-//   //   setMobileMenuOpen(false);
-//   // };
-
-//   return (
-//     <nav className="bg-gray-200">
-//       <div className="max-w-6xl mx-auto px-5">
-//         <div className="flex justify-between">
-//           <div className="flex space-x-3">
-//             {/* logo */}
-//             <div className="flex items-center py-4 px-1  text-gray-700 hover:text-gray-900">
-//               <Link to="/">Logo</Link>
-//             </div>
-
-//             {/* primary nav */}
-//             <div className="hidden md:flex items-center space-x-4">
-//               <Link
-//                 className="py-4 px-1 text-black text-gray-700 hover:text-gray-900"
-//                 to="/weeks"
-//               >
-//                 Treatment Plan
-//               </Link>
-//             </div>
-//           </div>
-//           {/* secondary nan */}
-//           <div className="hidden md:flex items-center space-x-1">
-//             <Link className="py-5 px-1" to="/profile">
-//               Profile
-//             </Link>
-//             {user ? (
-//               <Link
-//                 className="py-1 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-800 hover:text-yellow-800 rounded shadow transition duration-400"
-//                 to="/"
-//                 onClick={logout}
-//               >
-//                 logout
-//               </Link>
-//             ) : (
-//               <Link
-//                 className="py-1 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-800 hover:text-yellow-800 rounded shadow transition duration-400"
-//                 to="/login"
-//               >
-//                 login
-//               </Link>
-//             )}
-//           </div>
-
-//           {/* Mobile button goes here */}
-//           <div className="md:hidden flex items-center">
-//             <button
-//               onClick={handleToggle}
-//               className="mobile-menu-button"
-//               type=""
+//           <HStack spacing={8} alignItems={"center"}>
+//             <Box>Logo</Box>
+//             <HStack
+//               as={"nav"}
+//               spacing={4}
+//               display={{ base: "none", md: "flex" }}
 //             >
-//               <FaBars className="w-6 h-6" />
-//             </button>
-//           </div>
-//         </div>
-//       </div>
+//               {Links.map((link) => (
+//                 <NavLink key={link}>{link}</NavLink>
+//               ))}
+//             </HStack>
+//           </HStack>
+//           <Flex alignItems={"center"}>
+//             <Menu>
+//               <MenuButton
+//                 as={Button}
+//                 rounded={"full"}
+//                 variant={"link"}
+//                 cursor={"pointer"}
+//                 minW={0}
+//               >
+//                 <Avatar
+//                   size={"sm"}
+//                   src={
+//                     "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+//                   }
+//                 />
+//               </MenuButton>
+//             </Menu>
+//           </Flex>
+//         </Flex>
 
-//       {/* Mobile menu*/}
-//       <div className="md:hidden">
-//         <Link
-//           className={`mobile-menu ${
-//             mobileMenuOpen
-//               ? "block py-2 px-4 text-sm hover:bg-gray-300"
-//               : "hidden block py-2 px-4 text-sm hover:bg-gray-300"
-//           }`}
-//           to="/weeks"
-//         >
-//           Treatment Plan
-//         </Link>
-//         <Link
-//           className={`mobile-menu ${
-//             mobileMenuOpen
-//               ? "block py-2 px-4 text-sm hover:bg-gray-300"
-//               : "hidden block py-2 px-4 text-sm hover:bg-gray-300"
-//           }`}
-//           to="/profile"
-//         >
-//           Profile
-//         </Link>
-//       </div>
-//     </nav>
+//         {isOpen ? (
+//           <Box pb={4} display={{ md: "none" }}>
+//             <Stack as={"nav"} spacing={4}>
+//               {Links.map((link) => (
+//                 <NavLink key={link}>{link}</NavLink>
+//               ))}
+//             </Stack>
+//           </Box>
+//         ) : null}
+//       </Box>
+//     </>
 //   );
 // }
-
-// export default Nav;

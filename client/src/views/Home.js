@@ -1,24 +1,12 @@
 import React from "react";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Image,
   Heading,
   Stack,
   Text,
-  Divider,
-  ButtonGroup,
   Button,
   Box,
-  Container,
   Flex,
-  Icon,
-  IconButton,
-  createIcon,
-  IconProps,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 function Home() {
@@ -57,6 +45,7 @@ function Home() {
             <Stack
               spacing={{ base: 4, sm: 6 }}
               direction={{ base: "column", sm: "row" }}
+              display={{ base: "flex", sm: "block" }}
             >
               <Button
                 rounded={"full"}
@@ -69,7 +58,13 @@ function Home() {
               >
                 Get started
               </Button>
-              <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
+              <Button
+                rounded={"full"}
+                size={"lg"}
+                fontWeight={"normal"}
+                px={6}
+                _hover={{ bg: "gray.300" }}
+              >
                 How it works
               </Button>
             </Stack>
