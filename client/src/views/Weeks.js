@@ -41,11 +41,12 @@ function Weeks() {
       {treatmentWeeks ? (
         <Box align={"center"}>
           <Box
+            py={{ base: 8, md: 20 }}
             as="section"
             bg="ofwhite"
             pt="28px"
             pb="28"
-            maxW={{ base: "90%", md: "80%", lg: "70%" }}
+            maxW={{ base: "90%", md: "85%", lg: "80%" }}
             textAlign={["left", "center", "center"]}
           >
             <Heading
@@ -86,7 +87,7 @@ function Weeks() {
             textAlign={["left", "center", "center"]}
             align={"center"}
           >
-            <Stack direction="column" spacing={4} minH="300" align={"center"}>
+            <Stack direction="column" spacing={4} minH="500" align={"center"}>
               <Spinner
                 align={"center"}
                 thickness="4px"

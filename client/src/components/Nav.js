@@ -33,8 +33,6 @@ function Navigation() {
 
   const { isOpen, onToggle } = useDisclosure();
 
-  console.log(user.avatarPicture);
-
   return (
     <Box>
       <Flex
@@ -140,7 +138,7 @@ function Navigation() {
                   bg: "yellow.200",
                 }}
               >
-                Sign Up
+                <NavLink to="/register">Sign Up</NavLink>
               </Button>
             </>
           )}

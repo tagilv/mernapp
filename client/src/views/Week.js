@@ -27,12 +27,11 @@ function Week() {
             bg="ofwhite"
             pt="28px"
             pb="20"
-            v
             maxW={{ base: "90%", md: "80%", lg: "70%" }}
             textAlign={["left", "center", "center"]}
             align={"center"}
           >
-            <Stack direction="column" spacing={4} minH="300" align={"center"}>
+            <Stack direction="column" spacing={4} minH="500" align={"center"}>
               <Spinner
                 align={"center"}
                 thickness="4px"

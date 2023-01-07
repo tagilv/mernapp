@@ -1,3 +1,19 @@
+import { AddIcon } from "@chakra-ui/icons";
+import {
+  Avatar,
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  IconButton,
+  Image,
+  Input,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import getToken from "../utils/getToken.js";
@@ -5,12 +21,13 @@ import getToken from "../utils/getToken.js";
 function Profile() {
   const { userLogin, setUserLogin, getProfile, server } =
     useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+
   const [selectedFile, setSelectedFile] = useState({});
   const [error, setError] = useState(null);
 
+  console.log(user);
   // Need to bring in isLogged from AuthContext below when adding proteced routes to give time to get user
-
-  const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
     const token = getToken();
@@ -50,17 +67,6 @@ function Profile() {
       requestOptions
     );
     const result = await response.json();
-
-    // Experiment starts here
-
-    // Create a function that will take that image url
-    // This function will make a reqest to the route just tested
-    // At the end of the request we will recive the new user and set it
-    // Set user below can be removed
-
-    // Experiment ends here
-
-    // setUser({ ...user, avatarPicture: result.image });
 
     console.log("result>>", result);
     console.log("selectedFile>>", selectedFile);
@@ -107,26 +113,183 @@ function Profile() {
 
   return (
     <>
-      <div>
-        <h2>Welcome to your profile</h2>\
-        <form>
-          <input type="file" onChange={attachFilehandler} />
-          <button onClick={submitForm}>Upload Picture</button>
-        </form>
-        <h2>Test</h2>
-        {user && (
-          <div>
-            <p>Welcome {user.email}</p>
-            <img src={user.avatarPicture} alt="avatarPicture" />
-          </div>
-        )}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </div>
+      <Box maxW="100%" align="center" minH="100vh" py={{ base: 8, md: 20 }}>
+        {/* For upper */}
+        <Flex
+          bg={"lightgray"}
+          borderRadius={"20"}
+          justify={{ base: "start", md: "space-around" }}
+          spacing={{ base: 8, md: 10 }}
+          py={{ base: 8, md: 5 }}
+          direction={{ base: "column", md: "row" }}
+          maxW={{ base: "90%", md: "85%", lg: "80%" }}
+          height={"300px"}
+        >
+          <Box maxH={"80%"}>
+            <Text
+              align={{ base: "center", md: "right" }}
+              justify={{ base: "start", md: "space-around" }}
+            >
+              {user && <p>Welcome back {user.userName}!</p>}
+              {error && <p style={{ color: "red" }}>{error}</p>}
+            </Text>
+          </Box>
+          <Box height={{ base: "80%", md: "100%" }}>
+            <Box height={"80%"} rounded={"2xl"} pt={{ base: 2, md: 0 }}>
+              <Image
+                borderRadius="50"
+                alt={"Hero Image"}
+                fit={"cover"}
+                h={"100%"}
+                src={user.avatarPicture}
+              />
+            </Box>
+            <Box mt={"3"}>
+              <Flex
+                direction={{ base: "row", md: "s" }}
+                justify={"space-around"}
+              >
+                <ButtonGroup size="sm" isAttached variant="outline">
+                  <Input
+                    type="file"
+                    onChange={attachFilehandler}
+                    id="upload"
+                    hidden
+                  />
+                  <FormLabel
+                    pt={0.5}
+                    for="upload"
+                    height="24px"
+                    lineHeight="1.2"
+                    transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                    border="1px"
+                    px="8px"
+                    borderRadius="2px"
+                    fontSize="14px"
+                    fontWeight="semibold"
+                    bg="#f5f6f7"
+                    borderColor="#ccd0d5"
+                    color="#4b4f56"
+                    _hover={{ bg: "#ebedf0" }}
+                    _active={{
+                      bg: "#dddfe2",
+                      transform: "scale(0.98)",
+                      borderColor: "#bec3c9",
+                    }}
+                  >
+                    +
+                  </FormLabel>
+                  <Button
+                    onClick={submitForm}
+                    for="upload"
+                    height="24px"
+                    lineHeight="1.2"
+                    transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                    border="1px"
+                    px="8px"
+                    borderRadius="2px"
+                    fontSize="14px"
+                    fontWeight="semibold"
+                    bg="#f5f6f7"
+                    borderColor="#ccd0d5"
+                    color="#4b4f56"
+                    _hover={{ bg: "#ebedf0" }}
+                    _active={{
+                      bg: "#dddfe2",
+                      transform: "scale(0.98)",
+                      borderColor: "#bec3c9",
+                    }}
+                  >
+                    Upload image
+                  </Button>
+                </ButtonGroup>
+              </Flex>
+            </Box>
+          </Box>
+        </Flex>
+
+        <Flex
+          mt={"5"}
+          bg={"lightgray"}
+          borderRadius={"20"}
+          justify={{ base: "start", md: "space-around" }}
+          spacing={{ base: 8, md: 10 }}
+          py={{ base: 8, md: 5 }}
+          direction={{ base: "column", md: "row" }}
+          maxW={{ base: "90%", md: "85%", lg: "80%" }}
+          height={"300px"}
+        >
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 1</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 2</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 3</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 4</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 5</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 6</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 7</Text>
+          </Box>
+          <Box maxH={"60%"} bg={"purple"}>
+            <Text position={"relative"}>Week 8</Text>
+          </Box>
+        </Flex>
+      </Box>
     </>
   );
 }
 
 export default Profile;
+
+// pre 2nd
+{
+  /* <div>
+  <h2>Welcome to your profile</h2>\
+  <form>
+    <input type="file" onChange={attachFilehandler} />
+    <button onClick={submitForm}>Upload Picture</button>
+  </form>
+  <h2>Test</h2>
+  {user && (
+    <div>
+      <p>Welcome {user.email}</p>
+      <img src={user.avatarPicture} alt="avatarPicture" />
+    </div>
+  )}
+  {error && <p style={{ color: "red" }}>{error}</p>}
+</div> */
+}
+
+// Pre
+// Welcome back {user.userName}
+// <div>
+//   <h2>Welcome to your profile</h2>\
+//   <form>
+//     <input type="file" onChange={attachFilehandler} />
+//     <button onClick={submitForm}>Upload Picture</button>
+//   </form>
+//   <h2>Test</h2>
+//   {user && (
+//     <div>
+//       <p>Welcome {user.email}</p>
+//       <img src={user.avatarPicture} alt="avatarPicture" />
+//     </div>
+//   )}
+//   {error && <p style={{ color: "red" }}>{error}</p>}
+// </div>
+// ;
+
+// Pre
 
 //  <>
 //       <div>
@@ -164,5 +327,30 @@ export default Profile;
 //         )} */}
 //         {error && <p style={{ color: "red" }}>{error}</p>}
 //       </div>
+//     </>
+//   );
+
+// Before chakra impl
+
+//   return (
+//     <>
+//       <div>
+//         <h2>Welcome to your profile</h2>\
+//         <form>
+//           <input type="file" onChange={attachFilehandler} />
+//           <button onClick={submitForm}>Upload Picture</button>
+//         </form>
+//         <h2>Test</h2>
+//         {user && (
+//           <div>
+//             <p>Welcome {user.email}</p>
+//             <img src={user.avatarPicture} alt="avatarPicture" />
+//           </div>
+//         )}
+//         {error && <p style={{ color: "red" }}>{error}</p>}
+//       </div>
+
+//       {/* Test */}
+//       <div></div>
 //     </>
 //   );

@@ -9,9 +9,11 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
+import RyggskolanHero from "../assets/RyggskolanHero.png";
+
 function Home() {
   return (
-    <Box maxW="100%" align="center">
+    <Box maxW="100%" align="center" minH="100vh">
       <Box
         bg="ofwhite"
         maxW={{ base: "90%", md: "85%", lg: "80%" }}
@@ -20,7 +22,7 @@ function Home() {
         <Stack
           align="center"
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 20, md: 28 }}
+          py={{ base: 8, md: 20 }}
           direction={{ base: "column", md: "row" }}
         >
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
@@ -90,9 +92,7 @@ function Home() {
                 align={"center"}
                 w={"100%"}
                 h={"100%"}
-                src={
-                  "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
-                }
+                src={RyggskolanHero}
               />
             </Box>
           </Flex>

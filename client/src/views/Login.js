@@ -32,7 +32,3 @@ function Login() {
 }
 
 export default Login;
-
-{
-  /* <button onClick={logout}>logout</button> */
-}
