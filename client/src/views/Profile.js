@@ -4,6 +4,8 @@ import {
   Box,
   Button,
   ButtonGroup,
+  CircularProgress,
+  CircularProgressLabel,
   Flex,
   FormControl,
   FormLabel,
@@ -17,6 +19,24 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import getToken from "../utils/getToken.js";
+
+// Could also destruct the props with {}and pass in each props
+function WeekProgress(props) {
+  return (
+    <Box>
+      <Text mb={"2"}>{props.name}</Text>
+      <CircularProgress value={props.progress} color="green.400">
+        <CircularProgressLabel>{props.progress}%</CircularProgressLabel>
+      </CircularProgress>
+    </Box>
+  );
+}
+const exampleProgress = Array(8)
+  .fill(null)
+  .map((x, i) => {
+    return { name: `Week ${i + 1}`, progress: Math.floor(Math.random() * 100) };
+  });
+console.log("exampleProgress", exampleProgress);
 
 function Profile() {
   const { userLogin, setUserLogin, getProfile, server } =
@@ -217,32 +237,10 @@ function Profile() {
           py={{ base: 8, md: 5 }}
           direction={{ base: "column", md: "row" }}
           maxW={{ base: "90%", md: "85%", lg: "80%" }}
-          height={"300px"}
         >
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 1</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 2</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 3</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 4</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 5</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 6</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 7</Text>
-          </Box>
-          <Box maxH={"60%"} bg={"purple"}>
-            <Text position={"relative"}>Week 8</Text>
-          </Box>
+          {exampleProgress.map((week) => {
+            return <WeekProgress name={week.name} progress={week.progress} />;
+          })}
         </Flex>
       </Box>
     </>

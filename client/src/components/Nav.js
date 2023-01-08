@@ -99,21 +99,21 @@ function Navigation() {
                 </NavLink>
               </Button>
 
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize="sm"
-                fontWeight={600}
-                color="white"
-                bg="yellow.400"
-                href="#"
-                _hover={{
-                  bg: "yellow.200",
-                }}
-              >
-                <NavLink onClick={logout} to="/">
+              <NavLink onClick={logout} to="/">
+                <Button
+                  display={{ base: "none", md: "inline-flex" }}
+                  fontSize="sm"
+                  fontWeight={600}
+                  color="white"
+                  bg="yellow.400"
+                  href="#"
+                  _hover={{
+                    bg: "yellow.200",
+                  }}
+                >
                   Log Out
-                </NavLink>
-              </Button>
+                </Button>
+              </NavLink>
             </>
           ) : (
             <>
@@ -121,6 +121,7 @@ function Navigation() {
                 as="a"
                 fontSize="sm"
                 fontWeight={400}
+                color="white"
                 variant="link"
                 href="#"
               >

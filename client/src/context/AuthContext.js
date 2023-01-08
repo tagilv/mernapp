@@ -73,28 +73,27 @@ export const AuthContextProvider = ({ children }) => {
       body: urlencoded,
       redirect: "follow",
     };
-    try {
-      const response = await fetch(
-        `${server}/api/users/login`,
-        // "http://localhost:5000/api/users/login",
-        requestOptions
-      );
-      const result = await response.json();
-      //find token (same as result.token)
-      console.log("result", result);
-      const { token } = result;
-      // set user
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-      setUser(result.user);
-      // Need to add the below when adding proteced routes to give time to get user
-      // setIsLogged(true);
-    } catch (error) {
-      // Need to add the below when adding proteced routes to give time to get user
-      // setIsLogged(true);
-      console.log("error", error);
+    const response = await fetch(
+      `${server}/api/users/login`,
+      // "http://localhost:5000/api/users/login",
+      requestOptions
+    );
+    if (!response.ok) {
+      // New is a constructor that calls the Error class to create new instance
+      // Throw creates an exception (that the fucntion ends executing, ends with an error) Then we can cath this outisde the fucntion (in the front end) with a catch)
+      throw new Error("login failed");
     }
+    const result = await response.json();
+    //find token (same as result.token)
+    console.log("result", result);
+    const { token } = result;
+    // set user
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+    setUser(result.user);
+    // Need to add the below when adding proteced routes to give time to get user
+    // setIsLogged(true);
   };
 
   //LOGOUT

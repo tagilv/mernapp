@@ -66,14 +66,14 @@ const logIn = async (req, res) => {
     const existingUser = await userModel.findOne({ email: email });
     console.log("existingUser", existingUser);
     if (!existingUser) {
-      res.status(401).json({ message: "User with this email does not exist" });
+      res.status(401).json({ message: "login not successful" });
     } else {
       // Since isPassordCorrect is an asynchronous function, need to add await
       const verified = await isPasswordCorrect(password, existingUser.password);
       console.log("verified", verified);
 
       if (!verified) {
-        res.status(401).json({ message: "Password incorrect" });
+        res.status(401).json({ message: "login not successful" });
       }
       // Instead of putting an else in another if put if and expalain, for readbility
       if (verified) {

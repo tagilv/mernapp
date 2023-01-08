@@ -37,13 +37,16 @@ function TreatmentWeek({ treatmentWeek }) {
 
       <Stack>
         <CardBody>
-          <Heading size="md">Treatment Week {treatmentWeek.week}</Heading>
+          <Heading size="md"> Week {treatmentWeek.week}</Heading>
 
           <Text py="2">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            During this week we will focus on understanding where your pain lies
+            and what small excercises you can perform at home to make your
+            everday easier
+            {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            aliquip ex ea commodo consequat. */}
           </Text>
         </CardBody>
         <CardFooter mt="100px" direction="row" justifyContent="center">
@@ -52,7 +55,7 @@ function TreatmentWeek({ treatmentWeek }) {
               to={`${treatmentWeek.week}`}
               state={{ data: treatmentWeek }}
             >
-              To this Week's excercises
+              To the exercises >
             </NavLink>
           </Button>
         </CardFooter>
