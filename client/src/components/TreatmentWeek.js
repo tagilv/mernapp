@@ -31,7 +31,7 @@ function TreatmentWeek({ treatmentWeek }) {
         maxW={{ base: "100%", sm: "200px" }}
         maxH={{ base: "100%", sm: "200px" }}
         src={treatmentWeek.exercisesImagesMain[0]}
-        alt="Caffe Latte"
+        alt=""
         m="10px"
       />
 
