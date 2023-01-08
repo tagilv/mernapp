@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 import RyggskolanHero from "../assets/RyggskolanHero.png";
+import { NavLink } from "react-router-dom";
 
 function Home() {
   return (
@@ -22,7 +23,7 @@ function Home() {
         <Stack
           align="center"
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 8, md: 20 }}
+          pt={{ base: 30, md: 40 }}
           direction={{ base: "column", md: "row" }}
         >
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
@@ -58,9 +59,9 @@ function Home() {
                 bg={"red.400"}
                 _hover={{ bg: "red.500" }}
               >
-                Get started
+                <NavLink to="/weeks">Get started</NavLink>
               </Button>
-              <Button
+              {/* <Button
                 rounded={"full"}
                 size={"lg"}
                 fontWeight={"normal"}
@@ -68,7 +69,7 @@ function Home() {
                 _hover={{ bg: "gray.300" }}
               >
                 How it works
-              </Button>
+              </Button> */}
             </Stack>
           </Stack>
           <Flex

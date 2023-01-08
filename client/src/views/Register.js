@@ -8,7 +8,6 @@ import {
   HStack,
   Input,
   InputGroup,
-  InputRightElement,
   Stack,
   Text,
   useColorModeValue,
@@ -20,6 +19,18 @@ import { AuthContext } from "../context/AuthContext";
 function Register() {
   const { newUser, setNewUser, signUp } = useContext(AuthContext);
 
+  // const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+  // const handleChangeHandler = (e) => {
+  //   console.log(
+  //     "[e.target.name]: e.target.value",
+  //     e.target.name,
+  //     e.target.value
+  //   );
+  //   setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  // };
+
+  // Pre
   const handleChangeHandler = (e) => {
     console.log(
       "[e.target.name]: e.target.value",
@@ -31,13 +42,7 @@ function Register() {
 
   return (
     <>
-      {/* Test */}
-      <Flex
-        minH={"100vh"}
-        align={"center"}
-        justify={"center"}
-        bg={useColorModeValue("white", "white")}
-      >
+      <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
@@ -98,7 +103,7 @@ function Register() {
                     bg: "Blue.500",
                   }}
                 >
-                  Sign Up
+                  <Link to="/login"> Sign Up</Link>
                 </Button>
               </Stack>
               <Stack pt={"6"}>
