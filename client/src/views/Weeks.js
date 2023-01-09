@@ -28,6 +28,7 @@ function Weeks() {
       console.log("results.data>>", results.data);
     } catch (error) {
       console.log("error fetching getWeeks>>", error);
+      // setTreatmentWeeks([{ error: "you need to login first" }]);
     }
   };
 

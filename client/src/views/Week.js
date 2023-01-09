@@ -21,7 +21,7 @@ function Week() {
       {weekDetails ? (
         <DetailedTreatmentWeek weekDetails={weekDetails} />
       ) : (
-        <Box align={"center"}>
+        <Box align={"center"} minH="100vh">
           <Box
             as="section"
             bg="ofwhite"

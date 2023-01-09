@@ -22,19 +22,17 @@ export const AuthContextProvider = ({ children }) => {
   // REGISTER/SIGNUP
   const [newUser, setNewUser] = useState({});
 
-  const signUp = async () => {
+  const signUp = async (userName, email, password, avatarPicture) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const urlencoded = new URLSearchParams();
-    urlencoded.append("email", newUser.email);
-    urlencoded.append("password", newUser.password);
-    urlencoded.append("userName", newUser.userName);
+    urlencoded.append("userName", userName);
+    urlencoded.append("email", email);
+    urlencoded.append("password", password);
     urlencoded.append(
       "avatarPicture",
-      newUser.avatarPicture
-        ? newUser.avatarPicture
-        : "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+      "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
     );
 
     const requestOptions = {

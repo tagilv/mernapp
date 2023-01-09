@@ -18,7 +18,7 @@ import {
 import { NavLink } from "react-router-dom";
 
 function TreatmentWeek({ treatmentWeek }) {
-  console.log("treatmentWeek.week", treatmentWeek.exercisesImagesMain[0]);
+  // console.log("treatmentWeek.week", treatmentWeek.exercisesImagesMain[0]);
   return (
     <Card
       mb="8"
@@ -30,7 +30,7 @@ function TreatmentWeek({ treatmentWeek }) {
         objectFit="cover"
         maxW={{ base: "100%", sm: "200px" }}
         maxH={{ base: "100%", sm: "200px" }}
-        src={treatmentWeek.exercisesImagesMain[0]}
+        src={treatmentWeek?.exercisesImagesMain[0]}
         alt=""
         m="10px"
       />

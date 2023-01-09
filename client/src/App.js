@@ -9,6 +9,7 @@ import Register from "./views/Register";
 import { AuthContextProvider } from "./context/AuthContext";
 import Login from "./views/Login";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -19,10 +20,24 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/weeks" element={<Weeks />} />
+          <Route
+            path="/weeks"
+            element={
+              <ProtectedRoute>
+                <Weeks />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/week" element={<Week />} />
           <Route path="/weeks/:week" element={<Week />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </AuthContextProvider>

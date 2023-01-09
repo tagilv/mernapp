@@ -77,14 +77,9 @@ function Comments() {
   };
 
   // DELETE
-  // NEED TO PASS THE commentId here?
   // pass from delete functiomn the commentID
   const handleDelete = async (commentId) => {
     const token = getToken();
-    // SHOULD PASS THE COMMENT ID HERE?
-
-    // const commentId = weekDetails.comments[0]._id;
-    console.log("commentId", commentId);
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);

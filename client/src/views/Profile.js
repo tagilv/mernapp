@@ -46,7 +46,6 @@ function Profile() {
   const [selectedFile, setSelectedFile] = useState({});
   const [error, setError] = useState(null);
 
-  console.log(user);
   // Need to bring in isLogged from AuthContext below when adding proteced routes to give time to get user
 
   useEffect(() => {
@@ -146,13 +145,16 @@ function Profile() {
           height={"300px"}
         >
           <Box maxH={"80%"}>
-            <Text
+            <Heading
+              as="h3"
+              size="md"
               align={{ base: "center", md: "right" }}
               justify={{ base: "start", md: "space-around" }}
+              pt={{ base: "", md: "10" }}
             >
-              {user && <p>Welcome back {user.userName}!</p>}
+              {user && <p>Welcome back {user.userName}</p>}
               {error && <p style={{ color: "red" }}>{error}</p>}
-            </Text>
+            </Heading>
           </Box>
           <Box height={{ base: "80%", md: "100%" }}>
             <Box height={"80%"} rounded={"2xl"} pt={{ base: 2, md: 0 }}>

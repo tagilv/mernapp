@@ -12,12 +12,16 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function Register() {
   const { newUser, setNewUser, signUp } = useContext(AuthContext);
+
+  const userName = useRef("");
+  const email = useRef("");
+  const password = useRef("");
 
   // const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
@@ -30,14 +34,11 @@ function Register() {
   //   setNewUser({ ...newUser, [e.target.name]: e.target.value });
   // };
 
-  // Pre
-  const handleChangeHandler = (e) => {
-    console.log(
-      "[e.target.name]: e.target.value",
-      e.target.name,
-      e.target.value
-    );
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  const handleSubmit = (e) => {
+    console.log("email.current.value", email.current.value);
+    console.log("password.current.value", password.current.value);
+    console.log("email", email);
+    signUp(userName.current.value, email.current.value, password.current.value);
   };
 
   return (
@@ -46,7 +47,7 @@ function Register() {
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
-              Sign up
+              Sign up for an Account
             </Heading>
             <Text fontSize={"lg"} color={"gray.600"}></Text>
           </Stack>
@@ -58,15 +59,16 @@ function Register() {
           >
             <Stack spacing={4}>
               <HStack>
-                <Box>
+                <Box minW={"100%"}>
                   <FormControl id="username" isRequired>
                     <FormLabel for="userName">Username</FormLabel>
                     <Input
                       type="text"
                       id="username"
                       name="userName"
-                      value={newUser.userName ? newUser.userName : ""}
-                      onChange={handleChangeHandler}
+                      ref={userName}
+                      // value={newUser.userName ? newUser.userName : ""}
+                      // onChange={handleChangeHandler}
                     />
                   </FormControl>
                 </Box>
@@ -77,8 +79,9 @@ function Register() {
                   type="text"
                   id="email"
                   name="email"
-                  value={newUser.email ? newUser.email : ""}
-                  onChange={handleChangeHandler}
+                  ref={email}
+                  // value={newUser.email ? newUser.email : ""}
+                  // onChange={handleChangeHandler}
                 />
               </FormControl>
               <FormControl id="password" isRequired>
@@ -86,25 +89,29 @@ function Register() {
                 <InputGroup>
                   <Input
                     id="password"
-                    type="text"
+                    type="password"
                     name="password"
-                    value={newUser.password ? newUser.password : ""}
-                    onChange={handleChangeHandler}
+                    ref={password}
+                    // value={newUser.password ? newUser.password : ""}
+                    // onChange={handleChangeHandler}
                   />
                 </InputGroup>
               </FormControl>
               <Stack spacing={"10"} pt={"2"}>
-                <Button
-                  onClick={signUp}
-                  size={"lg"}
-                  bg={"blue.400"}
-                  color={"white"}
-                  _hover={{
-                    bg: "Blue.500",
-                  }}
-                >
-                  <Link to="/login"> Sign Up</Link>
-                </Button>
+                <Link to="/login">
+                  <Button
+                    onClick={handleSubmit}
+                    size={"lg"}
+                    bg={"blue.400"}
+                    color={"white"}
+                    _hover={{
+                      bg: "Blue.500",
+                    }}
+                  >
+                    {" "}
+                    Sign Up
+                  </Button>
+                </Link>
               </Stack>
               <Stack pt={"6"}>
                 <Text align={"center"}>
@@ -301,6 +308,271 @@ export default Register;
 //                 >
 //                   Sign Up
 //                 </Button>
+//               </Stack>
+//               <Stack pt={"6"}>
+//                 <Text align={"center"}>
+//                   Already an existing user?{" "}
+//                   <Link to="/login" color={"blue.400"}>
+//                     Login
+//                   </Link>
+//                 </Text>
+//               </Stack>
+//             </Stack>
+//           </Box>
+//         </Stack>
+//       </Flex>
+//     </>
+//   );
+// }
+
+// export default Register;
+
+// New Test
+
+// import {
+//   Box,
+//   Button,
+//   Flex,
+//   FormControl,
+//   FormLabel,
+//   Heading,
+//   HStack,
+//   Input,
+//   InputGroup,
+//   Stack,
+//   Text,
+//   useColorModeValue,
+// } from "@chakra-ui/react";
+// import React, { useContext, useRef, useState } from "react";
+// import { Link } from "react-router-dom";
+// import { AuthContext } from "../context/AuthContext";
+
+// function Register() {
+//   const { newUser, setNewUser, signUp } = useContext(AuthContext);
+
+//   const userName = useRef();
+//   const email = useRef();
+//   const password = useRef();
+
+//   // const handleChangeHandler = (e) => {
+//   //   console.log(
+//   //     "[e.target.name]: e.target.value",
+//   //     e.target.name,
+//   //     e.target.value
+//   //   );
+
+//   //   setNewUser({ ...newUser, [e.target.name]: e.target.value });
+//   // };
+
+//   const handleSubmit = (e) => {
+//     console.log("userName.current.value", userName.current.value);
+//     console.log("email.current.value", email.current.value);
+//     setNewUser(
+//       userName.current.value,
+//       email.current.value,
+//       password.current.value
+//     );
+//     signUp(userName.current.value, email.current.value, password.current.value);
+//   };
+
+//   return (
+//     <>
+//       <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
+//         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+//           <Stack align={"center"}>
+//             <Heading fontSize={"4xl"} textAlign={"center"}>
+//               Sign up for an Account
+//             </Heading>
+//             <Text fontSize={"lg"} color={"gray.600"}></Text>
+//           </Stack>
+//           <Box
+//             rounded={"lg"}
+//             bg={useColorModeValue("white", "gray.700")}
+//             boxShadow={"lg"}
+//             p={8}
+//           >
+//             <Stack spacing={4}>
+//               <HStack>
+//                 <Box minW={"100%"}>
+//                   <FormControl id="username" isRequired>
+//                     <FormLabel for="userName">Username</FormLabel>
+//                     <Input
+//                       type="text"
+//                       id="username"
+//                       name="userName"
+//                       ref={userName}
+//                       // value={newUser.userName ? newUser.userName : ""}
+//                       // onChange={handleChangeHandler}
+//                     />
+//                   </FormControl>
+//                 </Box>
+//               </HStack>
+//               <FormControl id="email" isRequired>
+//                 <FormLabel for="email">Email</FormLabel>
+//                 <Input
+//                   type="text"
+//                   id="email"
+//                   name="email"
+//                   ref={email}
+//                   // value={newUser.email ? newUser.email : ""}
+//                   // onChange={handleChangeHandler}
+//                 />
+//               </FormControl>
+//               <FormControl id="password" isRequired>
+//                 <FormLabel for="password">Password</FormLabel>
+//                 <InputGroup>
+//                   <Input
+//                     id="password"
+//                     type="password"
+//                     name="password"
+//                     ref={password}
+//                     // value={newUser.password ? newUser.password : ""}
+//                     // onChange={handleChangeHandler}
+//                   />
+//                 </InputGroup>
+//               </FormControl>
+//               <Stack spacing={"10"} pt={"2"}>
+//                 <Button
+//                   onClick={handleSubmit}
+//                   size={"lg"}
+//                   bg={"blue.400"}
+//                   color={"white"}
+//                   _hover={{
+//                     bg: "Blue.500",
+//                   }}
+//                 >
+//                   <Link to="/login"> Sign Up</Link>
+//                 </Button>
+//               </Stack>
+//               <Stack pt={"6"}>
+//                 <Text align={"center"}>
+//                   Already an existing user?{" "}
+//                   <Link to="/login" color={"blue.400"}>
+//                     Login
+//                   </Link>
+//                 </Text>
+//               </Stack>
+//             </Stack>
+//           </Box>
+//         </Stack>
+//       </Flex>
+//     </>
+//   );
+// }
+
+// export default Register;
+
+// Working
+
+// import {
+//   Box,
+//   Button,
+//   Flex,
+//   FormControl,
+//   FormLabel,
+//   Heading,
+//   HStack,
+//   Input,
+//   InputGroup,
+//   Stack,
+//   Text,
+//   useColorModeValue,
+// } from "@chakra-ui/react";
+// import React, { useContext, useState } from "react";
+// import { Link } from "react-router-dom";
+// import { AuthContext } from "../context/AuthContext";
+
+// function Register() {
+//   const { newUser, setNewUser, signUp } = useContext(AuthContext);
+
+//   // const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+//   // const handleChangeHandler = (e) => {
+//   //   console.log(
+//   //     "[e.target.name]: e.target.value",
+//   //     e.target.name,
+//   //     e.target.value
+//   //   );
+//   //   setNewUser({ ...newUser, [e.target.name]: e.target.value });
+//   // };
+
+//   const handleChangeHandler = (e) => {
+//     console.log(
+//       "[e.target.name]: e.target.value",
+//       e.target.name,
+//       e.target.value
+//     );
+//     setNewUser({ ...newUser, [e.target.name]: e.target.value });
+//   };
+
+//   return (
+//     <>
+//       <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
+//         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+//           <Stack align={"center"}>
+//             <Heading fontSize={"4xl"} textAlign={"center"}>
+//               Sign up for an Account
+//             </Heading>
+//             <Text fontSize={"lg"} color={"gray.600"}></Text>
+//           </Stack>
+//           <Box
+//             rounded={"lg"}
+//             bg={useColorModeValue("white", "gray.700")}
+//             boxShadow={"lg"}
+//             p={8}
+//           >
+//             <Stack spacing={4}>
+//               <HStack>
+//                 <Box minW={"100%"}>
+//                   <FormControl id="username" isRequired>
+//                     <FormLabel for="userName">Username</FormLabel>
+//                     <Input
+//                       type="text"
+//                       id="username"
+//                       name="userName"
+//                       value={newUser.userName ? newUser.userName : ""}
+//                       onChange={handleChangeHandler}
+//                     />
+//                   </FormControl>
+//                 </Box>
+//               </HStack>
+//               <FormControl id="email" isRequired>
+//                 <FormLabel for="email">Email</FormLabel>
+//                 <Input
+//                   type="text"
+//                   id="email"
+//                   name="email"
+//                   value={newUser.email ? newUser.email : ""}
+//                   onChange={handleChangeHandler}
+//                 />
+//               </FormControl>
+//               <FormControl id="password" isRequired>
+//                 <FormLabel for="password">Password</FormLabel>
+//                 <InputGroup>
+//                   <Input
+//                     id="password"
+//                     type="password"
+//                     name="password"
+//                     value={newUser.password ? newUser.password : ""}
+//                     onChange={handleChangeHandler}
+//                   />
+//                 </InputGroup>
+//               </FormControl>
+//               <Stack spacing={"10"} pt={"2"}>
+//                 <Link to="/login">
+//                   <Button
+//                     onClick={signUp}
+//                     size={"lg"}
+//                     bg={"blue.400"}
+//                     color={"white"}
+//                     _hover={{
+//                       bg: "Blue.500",
+//                     }}
+//                   >
+//                     {" "}
+//                     Sign Up
+//                   </Button>
+//                 </Link>
 //               </Stack>
 //               <Stack pt={"6"}>
 //                 <Text align={"center"}>
