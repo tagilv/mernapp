@@ -3,6 +3,12 @@ import getToken from "../utils/getToken";
 import useWeekDetails from "../utils/useWeekDetails.js";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { Box, Card, CardBody, Text } from "@chakra-ui/react";
+import { Textarea } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
+import { FaPaperPlane } from "react-icons/fa";
+import { FaTrashAlt, FaSave } from "react-icons/fa";
+import { Tooltip } from "@chakra-ui/react";
 
 function Comments() {
   const { server } = useContext(AuthContext);
@@ -160,59 +166,71 @@ function Comments() {
 
   return (
     <div>
-      <form onClick={handleSubmitComment}>
-        <div className="flex-row justify-center py-6 px-10">
-          {/* chat */}
-          <h4 className="px-4 pt-3 text-md">Chat to your nurse here</h4>
-          <div className="w-full md:w-full px-3 mb-2 mt-2">
-            <textarea
-              className="bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
-              placeholder="Type Your Comment"
-              required
-              type="text"
-              onChange={handleCommentInput}
-              value={commentInput}
-            ></textarea>
-            <button className="bg-white py-1 px-4 border border-gray-400 rounded-lg hover:bg-gray-100">
-              Add comment
-            </button>
-          </div>
-        </div>
-      </form>
+      <Box>
+        <Box position={"relative"} p={"4"} width={"full"} overflow={"hidden"}>
+          {/* Chat tools here */}
+          <form onClick={handleSubmitComment}>
+            {/* chat */}
+            <Text>Chat to your nurse here</Text>
+            <div className="w-full md:w-full px-3 mb-2 mt-2">
+              <Textarea
+                maxW={"50%"}
+                className="bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                placeholder="Type Your Message"
+                required
+                type="text"
+                onChange={handleCommentInput}
+                value={commentInput}
+              ></Textarea>
+              <button className="bg-white py-1 px-4 border border-gray-400 rounded-lg hover:bg-gray-100">
+                <Tooltip label="Send" fontSize="md">
+                  <Icon as={FaPaperPlane} boxSize={6} />
+                </Tooltip>
+              </button>
+            </div>
+          </form>
+        </Box>
+      </Box>
+
       {weekDetails &&
         weekDetails.comments.map((comment) => {
           return (
-            <div className="flex-row justify-center py-6 px-10">
-              <div>
-                {editCommentId !== comment._id ? (
-                  <div
-                    onClick={(e) =>
-                      handleEditToggle(comment._id, comment.comment)
-                    }
-                    className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+            <Box align="right" p={"4"}>
+              <div className="flex-row justify-center py-6 px-10">
+                <div>
+                  {editCommentId !== comment._id ? (
+                    <Card
+                      maxW={"50%"}
+                      onClick={(e) =>
+                        handleEditToggle(comment._id, comment.comment)
+                      }
+                      className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
                     hover:bg-white cursor-text"
-                  >
-                    <p>{comment.comment}</p>
-                  </div>
-                ) : (
-                  <textarea
-                    onChange={(e) => setEditComment(e.target.value)}
-                    className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+                    >
+                      <CardBody>
+                        <Text>{comment.comment}</Text>
+                      </CardBody>
+                    </Card>
+                  ) : (
+                    <textarea
+                      onChange={(e) => setEditComment(e.target.value)}
+                      className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
                     hover:bg-white cursor-text"
-                  >
-                    {editComment}
-                  </textarea>
-                )}
+                    >
+                      {editComment}
+                    </textarea>
+                  )}
+                </div>
+                {/* Take value of the text with e.target.value */}
+                <span onClick={(e) => handleEdit(comment._id, editComment)}>
+                  <Icon as={FaSave} />
+                </span>
+                {/* use the e and call back function to pass data back to the handleDelete function */}
+                <span onClick={(e) => handleDelete(comment._id)}>
+                  <Icon as={FaTrashAlt} />
+                </span>
               </div>
-              {/* Take value of the text with e.target.value */}
-              <span onClick={(e) => handleEdit(comment._id, editComment)}>
-                Save edit
-              </span>
-              {/* use the e and call back function to pass data back to the handleDelete function */}
-              <span onClick={(e) => handleDelete(comment._id)}>
-                Delete comment
-              </span>
-            </div>
+            </Box>
           );
         })}
     </div>
@@ -258,3 +276,80 @@ export default Comments;
 //     </textarea>
 //   );
 // }
+
+// Pre
+
+// return (
+//     <div>
+//       <Box>
+//         <Box
+//           position={"relative"}
+//           p={"4"}
+//           height={"300px"}
+//           width={"full"}
+//           overflow={"hidden"}
+//         >
+//           {/* Chat tools here */}
+
+//         </Box>
+//       </Box>
+//       <form onClick={handleSubmitComment}>
+//         <div className="flex-row justify-center py-6 px-10">
+//           {/* chat */}
+//           <h4 className="px-4 pt-3 text-md">Chat to your nurse here</h4>
+//           <div className="w-full md:w-full px-3 mb-2 mt-2">
+//             <textarea
+//               className="bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+//               placeholder="Type Your Comment"
+//               required
+//               type="text"
+//               onChange={handleCommentInput}
+//               value={commentInput}
+//             ></textarea>
+//             <button className="bg-white py-1 px-4 border border-gray-400 rounded-lg hover:bg-gray-100">
+//               Add comment
+//             </button>
+//           </div>
+//         </div>
+//       </form>
+//       {weekDetails &&
+//         weekDetails.comments.map((comment) => {
+//           return (
+//             <div className="flex-row justify-center py-6 px-10">
+//               <div>
+//                 {editCommentId !== comment._id ? (
+//                   <div
+//                     onClick={(e) =>
+//                       handleEditToggle(comment._id, comment.comment)
+//                     }
+//                     className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+//                     hover:bg-white cursor-text"
+//                   >
+//                     <p>{comment.comment}</p>
+//                   </div>
+//                 ) : (
+//                   <textarea
+//                     onChange={(e) => setEditComment(e.target.value)}
+//                     className=" bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700
+//                     hover:bg-white cursor-text"
+//                   >
+//                     {editComment}
+//                   </textarea>
+//                 )}
+//               </div>
+//               {/* Take value of the text with e.target.value */}
+//               <span onClick={(e) => handleEdit(comment._id, editComment)}>
+//                 Save edit
+//               </span>
+//               {/* use the e and call back function to pass data back to the handleDelete function */}
+//               <span onClick={(e) => handleDelete(comment._id)}>
+//                 Delete comment
+//               </span>
+//             </div>
+//           );
+//         })}
+//     </div>
+//   );
+// }
+
+// export default Comments;

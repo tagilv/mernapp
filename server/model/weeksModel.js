@@ -15,6 +15,12 @@ const weekSchema = new Schema({
     unique: false,
   },
 
+  weekFocus: {
+    type: String,
+    required: true,
+    unique: false,
+  },
+
   exercises: [{ type: Schema.Types.ObjectId, ref: "exercise" }],
   comments: [{ type: Schema.Types.ObjectId, ref: "comment" }],
 });
