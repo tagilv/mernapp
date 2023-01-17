@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext.js";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   Alert,
   AlertIcon,
@@ -23,6 +23,17 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   // Hooks needs to be at the top of the component (becasue it needs to be called every time the component is rendered)
   const navigate = useNavigate();
+
+  const location = useLocation();
+  console.log("loction", location);
+
+  useEffect(() => {
+    if (location.state !== null) {
+      setEmailInput(location.state.result.user.email);
+    } else {
+      setEmailInput("");
+    }
+  }, []);
 
   const { login, logout } = useContext(AuthContext);
 

@@ -1,8 +1,13 @@
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Heading,
   HStack,
@@ -13,32 +18,86 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function Register() {
   const { newUser, setNewUser, signUp } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   const userName = useRef("");
   const email = useRef("");
   const password = useRef("");
 
-  // const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  const [userNameInput, setUserNameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
 
-  // const handleChangeHandler = (e) => {
-  //   console.log(
-  //     "[e.target.name]: e.target.value",
-  //     e.target.name,
-  //     e.target.value
-  //   );
-  //   setNewUser({ ...newUser, [e.target.name]: e.target.value });
-  // };
+  const [isUserNameError, setIsUserNameError] = useState(
+    "Username is required"
+  );
+  const [isEmailError, setIsEmailError] = useState("Email is required");
+  const [isPasswordError, setIsPasswordError] = useState(
+    "Password is required"
+  );
 
-  const handleSubmit = (e) => {
-    console.log("email.current.value", email.current.value);
-    console.log("password.current.value", password.current.value);
-    console.log("email", email);
-    signUp(userName.current.value, email.current.value, password.current.value);
+  const [isSignUpError, setisSignUpError] = useState("");
+
+  const handleUserNameInputChange = (e) => {
+    console.log("e.target.value", e.target.value);
+    console.log("username input", e.target.value);
+
+    setUserNameInput(e.target.value);
+    if (e.target.value === "") {
+      setIsUserNameError("Username is required");
+      return;
+    }
+    setIsUserNameError("");
+  };
+
+  const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+  const handleEmailInputChange = (e) => {
+    setEmailInput(e.target.value);
+    if (regex.test(email.current.value) === false) {
+      setIsEmailError("Enter valid email address");
+      return;
+    }
+    if (e.target.value === "") {
+      setIsEmailError("Email is required");
+      return;
+    }
+    setIsEmailError("");
+  };
+
+  const handlePasswordInputChange = (e) => {
+    console.log("e.target.value", e.target.value);
+
+    setPasswordInput(e.target.value);
+    if (e.target.value === "") {
+      setIsPasswordError("Password is required");
+      return;
+    }
+    setIsPasswordError("");
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      // so now the return from this function should be saved in the message
+      const resultObject = await signUp(
+        userName.current.value,
+        email.current.value,
+        password.current.value
+      );
+      alert(resultObject.message);
+      navigate("/login", { state: { result: resultObject } });
+    } catch (error) {
+      setisSignUpError(error.message);
+    }
+    // console.log("email.current.value", email.current.value);
+    // console.log("password.current.value", password.current.value);
+    // console.log("email", email);
   };
 
   return (
@@ -60,58 +119,97 @@ function Register() {
             <Stack spacing={4}>
               <HStack>
                 <Box minW={"100%"}>
-                  <FormControl id="username" isRequired>
+                  <FormControl
+                    id="username"
+                    isRequired
+                    isInvalid={isUserNameError}
+                  >
                     <FormLabel for="userName">Username</FormLabel>
                     <Input
+                      minW={"100%"}
                       type="text"
                       id="username"
                       name="userName"
                       ref={userName}
+                      onChange={handleUserNameInputChange}
+                      value={userNameInput}
+
                       // value={newUser.userName ? newUser.userName : ""}
                       // onChange={handleChangeHandler}
                     />
+                    {!isUserNameError ? (
+                      <FormHelperText></FormHelperText>
+                    ) : (
+                      <FormErrorMessage>{isUserNameError}</FormErrorMessage>
+                    )}
                   </FormControl>
                 </Box>
               </HStack>
-              <FormControl id="email" isRequired>
+              <FormControl id="email" isRequired isInvalid={isEmailError}>
                 <FormLabel for="email">Email</FormLabel>
                 <Input
                   type="text"
                   id="email"
                   name="email"
                   ref={email}
+                  onChange={handleEmailInputChange}
+                  value={emailInput}
                   // value={newUser.email ? newUser.email : ""}
                   // onChange={handleChangeHandler}
                 />
+                {!isEmailError ? (
+                  <FormHelperText></FormHelperText>
+                ) : (
+                  <FormErrorMessage>{isEmailError}</FormErrorMessage>
+                )}
               </FormControl>
-              <FormControl id="password" isRequired>
+
+              <FormControl id="password" isRequired isInvalid={isPasswordError}>
                 <FormLabel for="password">Password</FormLabel>
-                <InputGroup>
+                <InputGroup flexDirection="column">
                   <Input
+                    minW={"100%"}
                     id="password"
                     type="password"
                     name="password"
                     ref={password}
+                    onChange={handlePasswordInputChange}
+                    value={passwordInput}
                     // value={newUser.password ? newUser.password : ""}
                     // onChange={handleChangeHandler}
                   />
+                  {!isPasswordError ? (
+                    <FormHelperText></FormHelperText>
+                  ) : (
+                    <FormErrorMessage>{isPasswordError}</FormErrorMessage>
+                  )}
                 </InputGroup>
               </FormControl>
+
               <Stack spacing={"10"} pt={"2"}>
-                <Link to="/login">
-                  <Button
-                    onClick={handleSubmit}
-                    size={"lg"}
-                    bg={"blue.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "Blue.500",
-                    }}
-                  >
-                    {" "}
-                    Sign Up
-                  </Button>
-                </Link>
+                <Button
+                  isDisabled={
+                    isEmailError || isPasswordError || isUserNameError
+                  }
+                  onClick={handleSubmit}
+                  size={"lg"}
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "Blue.500",
+                  }}
+                >
+                  {" "}
+                  Sign Up
+                </Button>
+                {!isSignUpError ? (
+                  <p></p>
+                ) : (
+                  <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle>{isSignUpError}</AlertTitle>
+                  </Alert>
+                )}
               </Stack>
               <Stack pt={"6"}>
                 <Text align={"center"}>

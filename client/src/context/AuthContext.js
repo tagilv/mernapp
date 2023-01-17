@@ -41,16 +41,20 @@ export const AuthContextProvider = ({ children }) => {
       body: urlencoded,
       redirect: "follow",
     };
-    try {
-      const response = await fetch(
-        `${server}/api/users/signup`,
-        // "http://localhost:5000/api/users/signup",
-        requestOptions
-      );
-      const result = await response.json();
-      console.log("result>>", result);
-    } catch (error) {
-      console.log(error);
+    const response = await fetch(
+      `${server}/api/users/signup`,
+      // "http://localhost:5000/api/users/signup",
+      requestOptions
+    );
+    if (!response.ok) {
+      // New is a constructor that calls the Error class to create new instance
+      // Throw creates an exception (that the fucntion ends executing, ends with an error) Then we can cath this outisde the fucntion (in the front end) with a catch)
+      throw new Error("Signup failed");
+    }
+    const result = await response.json();
+    console.log("result>>", result);
+    if (response.ok) {
+      return result;
     }
   };
 
@@ -88,8 +92,8 @@ export const AuthContextProvider = ({ children }) => {
     // set user
     if (token) {
       localStorage.setItem("token", token);
+      setUser(result.user);
     }
-    setUser(result.user);
     // Need to add the below when adding proteced routes to give time to get user
     // setIsLogged(true);
   };
@@ -167,3 +171,38 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// singup before
+
+// const signUp = async (userName, email, password, avatarPicture) => {
+//   const myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+//   const urlencoded = new URLSearchParams();
+//   urlencoded.append("userName", userName);
+//   urlencoded.append("email", email);
+//   urlencoded.append("password", password);
+//   urlencoded.append(
+//     "avatarPicture",
+//     "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+//   );
+
+//   const requestOptions = {
+//     method: "POST",
+//     headers: myHeaders,
+//     body: urlencoded,
+//     redirect: "follow",
+//   };
+//   try {
+//     const response = await fetch(
+//       `${server}/api/users/signup`,
+//       // "http://localhost:5000/api/users/signup",
+//       requestOptions
+//     );
+
+//     const result = await response.json();
+//     console.log("result>>", result);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
