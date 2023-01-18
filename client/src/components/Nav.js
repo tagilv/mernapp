@@ -12,6 +12,7 @@ import {
   useColorModeValue,
   WrapItem,
   Image,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
@@ -24,7 +25,10 @@ import { useLocation } from "react-router-dom";
 
 import Ryggskolan from "../assets/Ryggskolan.png";
 
+import getToken from "../utils/getToken.js";
+
 function Navigation() {
+  const token = getToken();
   const { user } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
 
@@ -117,30 +121,33 @@ function Navigation() {
             </>
           ) : (
             <>
-              <Button
-                as="a"
-                fontSize="sm"
-                fontWeight={400}
-                color="white"
-                variant="link"
-                href="#"
-              >
-                <NavLink to="/login">Log In</NavLink>
-              </Button>
+              <ButtonGroup spacing="1">
+                <Button
+                  fontSize="sm"
+                  size={{ base: "xs", md: "sm" }}
+                  fontWeight={600}
+                  color="white"
+                  variant="link"
+                  href="#"
+                >
+                  <NavLink to="/login">Log In</NavLink>
+                </Button>
 
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize="sm"
-                fontWeight={600}
-                color="white"
-                bg="yellow.400"
-                href="#"
-                _hover={{
-                  bg: "yellow.200",
-                }}
-              >
-                <NavLink to="/register">Sign Up</NavLink>
-              </Button>
+                <Button
+                  display={{ base: "inline-flex", md: "inline-flex" }}
+                  fontSize="sm"
+                  size={{ base: "xs", md: "sm" }}
+                  fontWeight={600}
+                  color="white"
+                  bg="yellow.400"
+                  href="#"
+                  _hover={{
+                    bg: "yellow.200",
+                  }}
+                >
+                  <NavLink to="/register">Sign Up</NavLink>
+                </Button>
+              </ButtonGroup>
             </>
           )}
           {/* TEST */}
@@ -185,10 +192,24 @@ const DesktopNav = () => {
 };
 
 const MobileNav = () => {
+  const { logout } = useContext(AuthContext);
   return (
     <Stack bg="white" display={{ md: "none" }}>
       <Box p={2} display={{ md: "none" }}>
         <Stack as={"nav"}>
+          <Link
+            _hover={{
+              textDecoration: "none",
+              bg: useColorModeValue("gray.200", "gray.700"),
+            }}
+            to="weeks"
+            as={NavLink}
+            p={3}
+            fontSize={"sm"}
+            fontWeight={800}
+          >
+            Treatment Plan
+          </Link>
           <Link
             to="profile"
             as={NavLink}
@@ -207,35 +228,30 @@ const MobileNav = () => {
               textDecoration: "none",
               bg: useColorModeValue("gray.200", "gray.700"),
             }}
-            to="weeks"
+            to="/"
             as={NavLink}
             p={3}
             fontSize={"sm"}
             fontWeight={800}
           >
-            Treatment Plan
+            Home
+          </Link>
+          <Link
+            onClick={logout}
+            _hover={{
+              textDecoration: "none",
+              bg: useColorModeValue("gray.200", "gray.700"),
+            }}
+            to="/login"
+            as={NavLink}
+            p={3}
+            fontSize={"sm"}
+            fontWeight={800}
+          >
+            Logout
           </Link>
         </Stack>
       </Box>
-      {/* <Flex
-        flexDirection="column"
-        py={2}
-        justify={"space-between"}
-        align={"center"}
-      >
-        <NavLink
-          to="profile"
-          as={Button}
-          p={3}
-          fontSize={"sm"}
-          fontWeight={800}
-        >
-          Profile
-        </NavLink>
-        <NavLink to="weeks" as={Button} p={3} fontSize={"sm"} fontWeight={800}>
-          Treatment Plan
-        </NavLink>
-      </Flex> */}
     </Stack>
   );
 };

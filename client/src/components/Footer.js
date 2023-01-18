@@ -13,7 +13,7 @@ import {
 
 function Footer() {
   return (
-    <footer className="bg-gray-200">
+    <footer>
       <Box
         bg={useColorModeValue("gray.50", "gray.900")}
         color={useColorModeValue("gray.700", "gray.200")}

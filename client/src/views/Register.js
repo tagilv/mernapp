@@ -34,15 +34,14 @@ function Register() {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
-  const [isUserNameError, setIsUserNameError] = useState(
-    "Username is required"
-  );
-  const [isEmailError, setIsEmailError] = useState("Email is required");
-  const [isPasswordError, setIsPasswordError] = useState(
-    "Password is required"
-  );
+  const [isUserNameError, setIsUserNameError] = useState("");
+  const [isEmailError, setIsEmailError] = useState("");
+  const [isPasswordError, setIsPasswordError] = useState("");
 
   const [isSignUpError, setisSignUpError] = useState("");
+
+  const [isFieldsInitialEmtpy, setIsFieldsInitialEmtpy] =
+    useState("InitialEmtpy");
 
   const handleUserNameInputChange = (e) => {
     console.log("e.target.value", e.target.value);
@@ -75,11 +74,19 @@ function Register() {
     console.log("e.target.value", e.target.value);
 
     setPasswordInput(e.target.value);
-    if (e.target.value === "") {
-      setIsPasswordError("Password is required");
+    if (e.target.value.length < 6) {
+      setIsPasswordError("Password is too short");
       return;
     }
     setIsPasswordError("");
+    handleInitialEmtpyFieldsButton();
+  };
+
+  // Add this fucntion to check fire when the handlePasswordInputChange() has compelted
+  const handleInitialEmtpyFieldsButton = () => {
+    if (isEmailError && isPasswordError && isUserNameError === "") {
+    }
+    setIsFieldsInitialEmtpy("");
   };
 
   const handleSubmit = async (e) => {
@@ -95,9 +102,6 @@ function Register() {
     } catch (error) {
       setisSignUpError(error.message);
     }
-    // console.log("email.current.value", email.current.value);
-    // console.log("password.current.value", password.current.value);
-    // console.log("email", email);
   };
 
   return (
@@ -189,7 +193,10 @@ function Register() {
               <Stack spacing={"10"} pt={"2"}>
                 <Button
                   isDisabled={
-                    isEmailError || isPasswordError || isUserNameError
+                    isEmailError ||
+                    isPasswordError ||
+                    isUserNameError ||
+                    isFieldsInitialEmtpy
                   }
                   onClick={handleSubmit}
                   size={"lg"}

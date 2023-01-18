@@ -23,13 +23,20 @@ function App() {
           <Route
             path="/weeks"
             element={
+              // <ProtectedRoute>
+              <Weeks />
+              // </ProtectedRoute>
+            }
+          />
+          {/* <Route path="/week" element={<Week />} /> */}
+          <Route
+            path="/weeks/:week"
+            element={
               <ProtectedRoute>
-                <Weeks />
+                <Week />
               </ProtectedRoute>
             }
           />
-          <Route path="/week" element={<Week />} />
-          <Route path="/weeks/:week" element={<Week />} />
           <Route
             path="/profile"
             element={

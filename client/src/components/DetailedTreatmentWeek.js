@@ -66,13 +66,15 @@ function DetailedTreatmentWeek({ weekDetails }) {
                       <h2>
                         <AccordionButton rounded={"2xl"}>
                           <Box as="span" flex="1" textAlign="left">
-                            <p>Exercise {exercise.exerciseNumber}</p>
+                            <Text fontSize="sm">
+                              Exercise {exercise.exerciseNumber}
+                            </Text>
                           </Box>
                           <AccordionIcon />
                         </AccordionButton>
                       </h2>
                       <AccordionPanel pb={4}>
-                        <p>{exercise.description}</p>
+                        <Text fontSize="sm">{exercise.description}</Text>
                       </AccordionPanel>
                     </AccordionItem>
                   </Accordion>

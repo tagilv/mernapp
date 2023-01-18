@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Navigate, Route } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -13,9 +14,11 @@ function ProtectedRoute({ children }) {
 
   return (
     <>
-      {isAuthenticated
-        ? children
-        : <p>you need to go to login</p> && <Navigate to="/register" />}
+      <Box minH="100vh">
+        {isAuthenticated
+          ? children
+          : <p>you need to go to login</p> && <Navigate to="/register" />}
+      </Box>
     </>
   );
 }

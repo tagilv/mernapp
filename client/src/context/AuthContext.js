@@ -14,13 +14,13 @@ export const AuthContextProvider = ({ children }) => {
   console.log("authcontext run");
 
   // USER state created here to be to set the user after login and then export value and use in other components in application
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   // Need to add the below when adding proteced routes to give time to get user
   // const [isLogged, setIsLogged] = useState(false);
 
   // REGISTER/SIGNUP
-  const [newUser, setNewUser] = useState({});
+  const [newUser, setNewUser] = useState(null);
 
   const signUp = async (userName, email, password, avatarPicture) => {
     const myHeaders = new Headers();
@@ -101,7 +101,7 @@ export const AuthContextProvider = ({ children }) => {
   //LOGOUT
   const logout = () => {
     localStorage.removeItem("token");
-    setUser(false);
+    setUser(null);
     console.log("user logged out");
   };
 

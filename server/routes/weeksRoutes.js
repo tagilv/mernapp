@@ -4,7 +4,7 @@ import { getAllWeeks, getWeeksByWeek } from "../controller/weeksController.js";
 const router = express.Router();
 import jwtAuth from "../middlewares/jwtAuth.js";
 
-router.get("/all", jwtAuth, getAllWeeks);
+router.get("/all", getAllWeeks);
 
 router.get("/all/:week", jwtAuth, getWeeksByWeek);
 

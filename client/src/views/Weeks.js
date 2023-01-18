@@ -15,11 +15,11 @@ function Weeks() {
   const getWeeks = async () => {
     try {
       const response = await fetch(
-        `${server}/api/weeks/all`,
+        `${server}/api/weeks/all`
         // "http://localhost:5000/api/weeks/all",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        // ,{
+        //   headers: { Authorization: `Bearer ${token}` },
+        // }
       );
 
       const results = await response.json();

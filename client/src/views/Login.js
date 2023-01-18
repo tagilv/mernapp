@@ -43,7 +43,8 @@ function Login() {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
-  const [isEmailError, setIsEmailError] = useState("Email is required");
+  // Note changed intial email error from "Email is required" to ""
+  const [isEmailError, setIsEmailError] = useState("");
   const [isPasswordError, setIsPasswordError] = useState(
     "Password is required"
   );

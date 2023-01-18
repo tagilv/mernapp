@@ -166,9 +166,10 @@ function Comments() {
           {/* Chat tools here */}
           <form onClick={handleSubmitComment}>
             {/* chat */}
-            <Text>Chat to your nurse here</Text>
+            <Text fontSize="md">Chat to your nurse here</Text>
             <div className="w-full md:w-full px-3 mb-2 mt-2">
               <Textarea
+                fontSize="sm"
                 maxW={"50%"}
                 className="bg-gray-100 rounded border border-gray-400 leading-normal w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
                 placeholder="Type Your Message"
