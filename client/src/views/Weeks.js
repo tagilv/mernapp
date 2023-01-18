@@ -40,7 +40,7 @@ function Weeks() {
     <>
       {" "}
       {treatmentWeeks ? (
-        <Box align={"center"}>
+        <Box align={"center"} minH="100vh">
           <Box
             py={{ base: 8, md: 20 }}
             as="section"
