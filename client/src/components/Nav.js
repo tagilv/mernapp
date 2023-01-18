@@ -92,7 +92,7 @@ function Navigation() {
               <Button
                 as="a"
                 fontSize="sm"
-                fontWeight={700}
+                fontWeight={800}
                 variant="link"
                 href="#"
                 color="white"
