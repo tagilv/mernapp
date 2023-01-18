@@ -25,10 +25,11 @@ import { useLocation } from "react-router-dom";
 
 import Ryggskolan from "../assets/Ryggskolan.png";
 
-import getToken from "../utils/getToken.js";
+// Token is there to recognie that you are logged in after closing andmopenring a session
+// import getToken from "../utils/getToken.js";
 
 function Navigation() {
-  const token = getToken();
+  // const token = getToken();
   const { user } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
 
@@ -91,7 +92,7 @@ function Navigation() {
               <Button
                 as="a"
                 fontSize="sm"
-                fontWeight={800}
+                fontWeight={700}
                 variant="link"
                 href="#"
                 color="white"
