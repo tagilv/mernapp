@@ -61,7 +61,7 @@ function DetailedTreatmentWeek({ weekDetails }) {
                 // maxW={{ base: "90%", md: "85%", lg: "80%" }}
               >
                 <div>
-                  <Accordion defaultIndex={[0]} allowMultiple>
+                  <Accordion allowMultiple>
                     <AccordionItem>
                       <h2>
                         <AccordionButton rounded={"2xl"}>
