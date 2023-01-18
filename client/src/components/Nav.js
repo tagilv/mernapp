@@ -98,9 +98,11 @@ function Navigation() {
                 color="white"
               >
                 <NavLink to="/profile">
-                  <WrapItem>
-                    <Avatar size="sm" src={user.avatarPicture} />{" "}
-                  </WrapItem>
+                  <Stack>
+                    <WrapItem mr={{ base: "-20", md: "none" }}>
+                      <Avatar size="sm" src={user.avatarPicture} />{" "}
+                    </WrapItem>
+                  </Stack>
                 </NavLink>
               </Button>
 
