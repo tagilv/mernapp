@@ -28,7 +28,7 @@ const corsOptions = {
   // credentials: true,
   // From the front end, this url can fetch dat for me
   // origin: "https://mernapp-azfy.vercel.app",
-  credentials: true,
+  // credentials: true,
 };
 
 const addMiddleWares = () => {
