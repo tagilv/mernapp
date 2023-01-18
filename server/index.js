@@ -24,7 +24,7 @@ const corsOptions = {
   origin:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : "https://ryggskolan.vercel.app/",
+      : "http://ryggskolan.vercel.app/",
   // credentials: true,
   // From the front end, this url can fetch dat for me
   // origin: "https://mernapp-azfy.vercel.app",
