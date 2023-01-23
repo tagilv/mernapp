@@ -9,9 +9,10 @@ import { Icon } from "@chakra-ui/react";
 import { FaPaperPlane } from "react-icons/fa";
 import { FaTrashAlt, FaSave } from "react-icons/fa";
 import { Tooltip } from "@chakra-ui/react";
+import { server } from "../utils/server";
 
 function Comments() {
-  const { server } = useContext(AuthContext);
+  // const { server } = useContext(AuthContext);
   // Get weekId from the front end from weekDetials._id (then use this in the to append it to the urlencoded)
 
   const { setWeekDetails, weekDetails, getWeekDetails } = useWeekDetails();

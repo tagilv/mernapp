@@ -8,17 +8,21 @@ function ProtectedRoute({ children }) {
   console.log("protected routes props", children);
   const token = getToken();
 
-  const { user } = useContext(AuthContext);
+  const { user, isLoading } = useContext(AuthContext);
 
   const isAuthenticated = token ? (user ? true : false) : false;
-
+  console.log("isLoading", isLoading);
   return (
     <>
-      <Box minH="100vh">
-        {isAuthenticated
-          ? children
-          : <p>you need to go to login</p> && <Navigate to="/register" />}
-      </Box>
+      {isLoading ? (
+        <Box minH="100vh"></Box>
+      ) : (
+        <Box minH="100vh">
+          {isAuthenticated
+            ? children
+            : <p>you need to go to login</p> && <Navigate to="/register" />}
+        </Box>
+      )}
     </>
   );
 }

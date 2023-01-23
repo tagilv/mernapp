@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import getToken from "./getToken";
+import { server } from "../utils/server";
 
 function useWeekDetails() {
   const [weekDetails, setWeekDetails] = useState("");
   const token = getToken();
 
-  const { server } = useContext(AuthContext);
+  // const { server } = useContext(AuthContext);
 
   const getWeekDetails = async (week) => {
     console.log("week>>>>", week);
