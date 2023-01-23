@@ -12,7 +12,9 @@ This application was built for a helaht care start up that offers an 8 week prog
 React.js
 <br>
 NodeJS
+<br>
 MongoDB
+<br>
 ChakraUI
 </p>
 
