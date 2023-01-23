@@ -1,6 +1,6 @@
 # MERN healthapp project
 
-<h1>Fullstack health application built with React, NodeJS, MongoDb and ChakraUI</h1>
+<h2>Fullstack health application built with React, NodeJS, MongoDb and ChakraUI</h2>
 
 <h2>Purpose of the application</h2>
 <p>
@@ -8,10 +8,13 @@ This application was built for a helaht care start up that offers an 8 week prog
 </p>
   
 <h2>Technologies used</h2>
+<p>
 React.js
+<br>
 NodeJS
 MongoDB
 ChakraUI
+</p>
 
 <h2>Deployed on vercel:</h2>
 https://ryggskolan.vercel.app/
