@@ -19,13 +19,11 @@ const signUp = async (req, res) => {
       email: email,
     });
     if (existingUser) {
-      console.log("existingUser>>", existingUser);
       res.status(300).json({
         message: "email already in use",
       });
     } else {
       const hashedPassword = await encryptPassword(password);
-      console.log("hashedPassword>>", hashedPassword);
       const newUser = new userModel({
         email: email,
         password: hashedPassword,
@@ -37,7 +35,6 @@ const signUp = async (req, res) => {
 
       try {
         const savedUser = await newUser.save();
-        console.log("savedUser>>", savedUser);
         res.status(201).json({
           message: "user registered sucessfully",
           user: savedUser,
@@ -63,23 +60,19 @@ const logIn = async (req, res) => {
   try {
     // Password below is of the existing (registered) user
     const existingUser = await userModel.findOne({ email: email });
-    console.log("existingUser", existingUser);
     if (!existingUser) {
       res.status(401).json({ message: "login not successful" });
     } else {
       // Since isPassordCorrect is an async adding await
       const verified = await isPasswordCorrect(password, existingUser.password);
-      console.log("verified", verified);
 
       if (!verified) {
         res.status(401).json({ message: "login not successful" });
       }
       // Instead of putting an else in another if putting if, for readbility
       if (verified) {
-        console.log("verified", verified);
         // Password matches so generate the token and store it in a variable
         const token = issueToken(existingUser._id, existingUser.email);
-        console.log("token", token);
         //Send back user info to use in auth context
         res.status(200).json({
           message: "login successfull",
@@ -100,13 +93,10 @@ const logIn = async (req, res) => {
 };
 
 const imageUpload = async (req, res) => {
-  console.log("req.file", req.file);
-
   try {
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       folder: "ryggskolan-images",
     });
-    console.log("uploadResult>>", uploadResult);
 
     res.status(200).json({
       msg: "image uploaded successfully",
@@ -175,8 +165,6 @@ const updateProfile = async (req, res) => {
   // req.user from backend, req.body from front end
   const { avatarPicture, newEmail } = req.body;
   const { userName, email } = req.user;
-  console.log(req.body);
-  console.log(req.user);
   try {
     const existingUser = await userModel.findOneAndUpdate(
       // Email is the field in db(its key), email from req.user
@@ -186,7 +174,6 @@ const updateProfile = async (req, res) => {
       },
       { new: true }
     );
-    console.log("new existingUser", existingUser);
     res.status(200).json({
       // ExistingUser to send back
       userName: existingUser.userName,

@@ -30,7 +30,6 @@ const exampleProgress = Array(8)
   .map((x, i) => {
     return { name: `Week ${i + 1}`, progress: Math.floor(Math.random() * 100) };
   });
-console.log("exampleProgress", exampleProgress);
 
 function Profile() {
   const { userLogin, setUserLogin, getProfile, server } =
@@ -49,13 +48,9 @@ function Profile() {
 
   const attachFilehandler = (e) => {
     setSelectedFile(e.target.files[0]);
-    console.log("FILES ATTACHING");
-    console.log("e.target.files[0]", e.target.files[0]);
-    console.log("e.target", e.target.value);
   };
 
   const submitForm = async (e) => {
-    console.log("selectedFile>>", selectedFile);
     e.preventDefault();
     const token = getToken();
 
@@ -79,13 +74,10 @@ function Profile() {
     );
     const result = await response.json();
 
-    console.log("result>>", result);
-    console.log("selectedFile>>", selectedFile);
     updateProfile(result);
   };
 
   const updateProfile = async (result) => {
-    console.log("result", result);
     const token = getToken();
 
     const myHeaders = new Headers();
@@ -109,7 +101,6 @@ function Profile() {
         requestOptions
       );
       const updatedUser = await response.json();
-      console.log("updatedUser", updatedUser);
       setUser(updatedUser);
     } catch (error) {
       console.log("Error updating image>>", error);

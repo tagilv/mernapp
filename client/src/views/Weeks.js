@@ -24,9 +24,8 @@ function Weeks() {
       );
 
       const results = await response.json();
-      console.log("results>>", results);
+
       setTreatmentWeeks(results.data);
-      console.log("results.data>>", results.data);
     } catch (error) {
       console.log("error fetching getWeeks>>", error);
       // setTreatmentWeeks([{ error: "you need to login first" }]);

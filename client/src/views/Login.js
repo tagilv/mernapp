@@ -24,7 +24,6 @@ function Login() {
   const navigate = useNavigate();
 
   const location = useLocation();
-  console.log("loction", location);
 
   useEffect(() => {
     if (location.state !== null) {
@@ -65,8 +64,6 @@ function Login() {
   };
 
   const handlePasswordInputChange = (e) => {
-    console.log("e.target.value", e.target.value);
-
     setPasswordInput(e.target.value);
     if (e.target.value === "") {
       setIsPasswordError("Password is required");

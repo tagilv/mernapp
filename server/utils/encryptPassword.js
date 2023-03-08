@@ -5,7 +5,6 @@ const encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(saltRounds);
 
   const hashedPassword = await bcrypt.hash(password, salt);
-  console.log("hashedPassword>>", hashedPassword);
 
   return hashedPassword;
 };

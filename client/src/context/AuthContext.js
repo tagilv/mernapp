@@ -5,8 +5,6 @@ import { server } from "../utils/server.js";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  console.log("authcontext run");
-
   // User state created here to set the user after login and then export value use in components
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +42,6 @@ export const AuthContextProvider = ({ children }) => {
       throw new Error("Signup failed");
     }
     const result = await response.json();
-    console.log("result>>", result);
     if (response.ok) {
       return result;
     }
@@ -52,8 +49,6 @@ export const AuthContextProvider = ({ children }) => {
 
   //LOGIN
   const login = async (email, password) => {
-    console.log("email, password>>>>", email, password);
-
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -76,7 +71,6 @@ export const AuthContextProvider = ({ children }) => {
       throw new Error("login failed");
     }
     const result = await response.json();
-    console.log("result", result);
     const { token } = result;
     // set user
     if (token) {
@@ -113,7 +107,6 @@ export const AuthContextProvider = ({ children }) => {
           requestOptions
         );
         const result = await response.json();
-        console.log("profile result", result);
         setUser(result);
       } catch (error) {
         console.log("Error getting user profile", error);
@@ -126,7 +119,6 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("useEffect getProfile run>>>");
     getProfile();
   }, []);
 

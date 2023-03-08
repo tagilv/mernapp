@@ -44,9 +44,6 @@ function Register() {
     useState("InitialEmtpy");
 
   const handleUserNameInputChange = (e) => {
-    console.log("e.target.value", e.target.value);
-    console.log("username input", e.target.value);
-
     setUserNameInput(e.target.value);
     if (e.target.value === "") {
       setIsUserNameError("Username is required");
@@ -71,8 +68,6 @@ function Register() {
   };
 
   const handlePasswordInputChange = (e) => {
-    console.log("e.target.value", e.target.value);
-
     setPasswordInput(e.target.value);
     if (e.target.value.length < 6) {
       setIsPasswordError("Password is too short");

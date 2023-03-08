@@ -8,7 +8,6 @@ function useWeekDetails() {
   const token = getToken();
 
   const getWeekDetails = async (week) => {
-    console.log("week>>>>", week);
     try {
       const response = await fetch(
         `${server}/api/weeks/all/${week}`,
@@ -19,9 +18,7 @@ function useWeekDetails() {
       );
 
       const results = await response.json();
-      console.log("results>>", results);
-      console.log("results.requestedWeek>>", results.requestedWeek);
-      console.log("results.requestedWeek[0]>>", results.requestedWeek[0]);
+
       setWeekDetails(results.requestedWeek[0]);
     } catch (error) {
       console.log("error fetching weekly excercises>>", error);

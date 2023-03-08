@@ -17,7 +17,6 @@ const jwtStrategy = new JwtStrategy(opts, function (jwt_payload, done) {
       console.log("err in passport", err);
     }
     if (user) {
-      console.log("user in passport", user);
       return done(null, user);
     } else {
       return done(null, false);
