@@ -1,26 +1,20 @@
-import { AddIcon } from "@chakra-ui/icons";
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
   CircularProgress,
   CircularProgressLabel,
   Flex,
-  FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Image,
   Input,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import getToken from "../utils/getToken.js";
 
-// Could also destruct the props with {}and pass in each props
 function WeekProgress(props) {
   return (
     <Box>
@@ -45,8 +39,6 @@ function Profile() {
 
   const [selectedFile, setSelectedFile] = useState({});
   const [error, setError] = useState(null);
-
-  // Need to bring in isLogged from AuthContext below when adding proteced routes to give time to get user
 
   useEffect(() => {
     const token = getToken();
@@ -89,7 +81,6 @@ function Profile() {
 
     console.log("result>>", result);
     console.log("selectedFile>>", selectedFile);
-    // setUser(result);
     updateProfile(result);
   };
 
@@ -125,7 +116,6 @@ function Profile() {
     }
   };
 
-  // // To trigger the getProfile to get the userLogin info as the view loads
   useEffect(() => {
     getProfile();
   }, []);
@@ -133,7 +123,6 @@ function Profile() {
   return (
     <>
       <Box maxW="100%" align="center" minH="100vh" py={{ base: 8, md: 20 }}>
-        {/* For upper */}
         <Flex
           bg={"lightgray"}
           borderRadius={"20"}
@@ -250,107 +239,3 @@ function Profile() {
 }
 
 export default Profile;
-
-// pre 2nd
-{
-  /* <div>
-  <h2>Welcome to your profile</h2>\
-  <form>
-    <input type="file" onChange={attachFilehandler} />
-    <button onClick={submitForm}>Upload Picture</button>
-  </form>
-  <h2>Test</h2>
-  {user && (
-    <div>
-      <p>Welcome {user.email}</p>
-      <img src={user.avatarPicture} alt="avatarPicture" />
-    </div>
-  )}
-  {error && <p style={{ color: "red" }}>{error}</p>}
-</div> */
-}
-
-// Pre
-// Welcome back {user.userName}
-// <div>
-//   <h2>Welcome to your profile</h2>\
-//   <form>
-//     <input type="file" onChange={attachFilehandler} />
-//     <button onClick={submitForm}>Upload Picture</button>
-//   </form>
-//   <h2>Test</h2>
-//   {user && (
-//     <div>
-//       <p>Welcome {user.email}</p>
-//       <img src={user.avatarPicture} alt="avatarPicture" />
-//     </div>
-//   )}
-//   {error && <p style={{ color: "red" }}>{error}</p>}
-// </div>
-// ;
-
-// Pre
-
-//  <>
-//       <div>
-//         <h2>Welcome to your profile</h2>\
-//         <form>
-//           <input
-//             type="file"
-//             name="file"
-//             id="file"
-//             onChange={attachFilehandler}
-//           />
-//           <button onClick={submitForm}>Upload Picture</button>
-//         </form>
-//         <h2>Test</h2>
-//         {user && (
-//           <div>
-//             <p>Welcome {user.email}</p>
-//             <img src={user.avatarPicture} alt="avatarPicture" />
-//             {console.log("user", user)}
-//           </div>
-//         )}
-//         <h2>Placeholder pic</h2>
-//         {/* {!isLogged ? (
-//           <p>NOT LOGGED!!!</p>
-//         ) : (
-//           userLogin && (
-//             <div>
-//               <p>Welcomesss {userLogin.email}</p>
-//               <img src={userLogin.avatarPicture} alt="avatarPicture" />
-//               <img src={userLogin.avatar} alt="avatar" />
-//               {console.log("userLogin.avatarPicture", userLogin.avatarPicture)}
-//               {console.log("userLogin", userLogin)}
-//             </div>
-//           )
-//         )} */}
-//         {error && <p style={{ color: "red" }}>{error}</p>}
-//       </div>
-//     </>
-//   );
-
-// Before chakra impl
-
-//   return (
-//     <>
-//       <div>
-//         <h2>Welcome to your profile</h2>\
-//         <form>
-//           <input type="file" onChange={attachFilehandler} />
-//           <button onClick={submitForm}>Upload Picture</button>
-//         </form>
-//         <h2>Test</h2>
-//         {user && (
-//           <div>
-//             <p>Welcome {user.email}</p>
-//             <img src={user.avatarPicture} alt="avatarPicture" />
-//           </div>
-//         )}
-//         {error && <p style={{ color: "red" }}>{error}</p>}
-//       </div>
-
-//       {/* Test */}
-//       <div></div>
-//     </>
-//   );

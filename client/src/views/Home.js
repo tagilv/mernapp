@@ -40,7 +40,7 @@ function Home() {
                 in 8 short weeks
               </Text>
             </Heading>
-            <Text textAlign={["left", "center", "center"]} color={"gray.500"}>
+            <Text textAlign={["center", "center", "center"]} color={"gray.500"}>
               Ryggskolan is an 8-week long program desinged by nurses and
               medical professionals at XX. The program is free and provides you
               with direct access to XX through a chat
@@ -61,15 +61,6 @@ function Home() {
               >
                 <NavLink to="/weeks">Get started</NavLink>
               </Button>
-              {/* <Button
-                rounded={"full"}
-                size={"lg"}
-                fontWeight={"normal"}
-                px={6}
-                _hover={{ bg: "gray.300" }}
-              >
-                How it works
-              </Button> */}
             </Stack>
           </Stack>
           <Flex

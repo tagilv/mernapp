@@ -3,12 +3,10 @@ import { NavLink } from "react-router-dom";
 
 import {
   Box,
-  chakra,
   Container,
   Stack,
   Text,
   useColorModeValue,
-  VisuallyHidden,
 } from "@chakra-ui/react";
 
 function Footer() {

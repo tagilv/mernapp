@@ -21,7 +21,6 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  // Hooks needs to be at the top of the component (becasue it needs to be called every time the component is rendered)
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -43,7 +42,6 @@ function Login() {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
-  // Note changed intial email error from "Email is required" to ""
   const [isEmailError, setIsEmailError] = useState("");
   const [isPasswordError, setIsPasswordError] = useState(
     "Password is required"
@@ -78,7 +76,6 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    // catch the error here
     try {
       await login(email.current.value, password.current.value);
       navigate("/weeks");

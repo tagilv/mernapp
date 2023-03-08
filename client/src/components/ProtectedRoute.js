@@ -5,13 +5,12 @@ import { AuthContext } from "../context/AuthContext";
 import getToken from "../utils/getToken.js";
 
 function ProtectedRoute({ children }) {
-  console.log("protected routes props", children);
   const token = getToken();
 
   const { user, isLoading } = useContext(AuthContext);
 
   const isAuthenticated = token ? (user ? true : false) : false;
-  console.log("isLoading", isLoading);
+
   return (
     <>
       {isLoading ? (

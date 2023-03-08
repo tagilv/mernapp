@@ -10,7 +10,7 @@ import { server } from "../utils/server";
 
 function Weeks() {
   const token = getToken();
-  // const { server } = useContext(AuthContext);
+
   const [treatmentWeeks, setTreatmentWeeks] = useState("");
   const [week, setWeek] = useState(null);
   const getWeeks = async () => {
@@ -108,15 +108,3 @@ function Weeks() {
 }
 
 export default Weeks;
-
-// {
-//   treatmentWeeks &&
-//     treatmentWeeks.map((treatmentWeek, i) => {
-//       return (
-//         <TreatmentWeek
-//           key={treatmentWeek._id}
-//           treatmentWeek={treatmentWeek}
-//         />
-//       );
-//     });
-// }

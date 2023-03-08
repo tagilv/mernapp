@@ -28,7 +28,6 @@ function App() {
               // </ProtectedRoute>
             }
           />
-          {/* <Route path="/week" element={<Week />} /> */}
           <Route
             path="/weeks/:week"
             element={

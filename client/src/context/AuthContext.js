@@ -2,19 +2,14 @@ import { createContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken.js";
 import { server } from "../utils/server.js";
 
-// Create variable with the server info
-
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   console.log("authcontext run");
 
-  // USER state created here to be to set the user after login and then export value and use in other components in application
+  // User state created here to set the user after login and then export value use in components
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  // Need to add the below when adding proteced routes to give time to get user
-  // const [isLogged, setIsLogged] = useState(false);
 
   // REGISTER/SIGNUP
   const [newUser, setNewUser] = useState(null);
@@ -45,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
     );
     if (!response.ok) {
       // New is a constructor that calls the Error class to create new instance
-      // Throw creates an exception (that the fucntion ends executing, ends with an error) Then we can cath this outisde the fucntion (in the front end) with a catch)
+      // Throw creates an exception (function ends executing, ends with an error and then we can cath this outside the function in the front end with a catch
       throw new Error("Signup failed");
     }
     const result = await response.json();
@@ -78,12 +73,9 @@ export const AuthContextProvider = ({ children }) => {
       requestOptions
     );
     if (!response.ok) {
-      // New is a constructor that calls the Error class to create new instance
-      // Throw creates an exception (that the fucntion ends executing, ends with an error) Then we can cath this outisde the fucntion (in the front end) with a catch)
       throw new Error("login failed");
     }
     const result = await response.json();
-    //find token (same as result.token)
     console.log("result", result);
     const { token } = result;
     // set user
@@ -91,8 +83,6 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.setItem("token", token);
       setUser(result.user);
     }
-    // Need to add the below when adding proteced routes to give time to get user
-    // setIsLogged(true);
   };
 
   //LOGOUT
@@ -103,16 +93,10 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   // GET PROFILE
-
   const getProfile = async () => {
     const token = getToken();
 
     if (token) {
-      // console.log("Profile loading");
-      // if (token) {
-      //   setError(null);
-      // }
-
       const myHeaders = new Headers();
       myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -131,11 +115,7 @@ export const AuthContextProvider = ({ children }) => {
         const result = await response.json();
         console.log("profile result", result);
         setUser(result);
-        // Need to add the below when adding proteced routes to give time to get user
-        // setIsLogged(true);
       } catch (error) {
-        // Need to add the below when adding proteced routes to give time to get user
-        // setIsLogged(true);
         console.log("Error getting user profile", error);
       } finally {
         setIsLoading(false);
@@ -163,46 +143,9 @@ export const AuthContextProvider = ({ children }) => {
         getProfile,
         isLoading,
         // server,
-        // Need to add the below when adding proteced routes to give time to get user
-        // isLogged,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
-
-// singup before
-
-// const signUp = async (userName, email, password, avatarPicture) => {
-//   const myHeaders = new Headers();
-//   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-//   const urlencoded = new URLSearchParams();
-//   urlencoded.append("userName", userName);
-//   urlencoded.append("email", email);
-//   urlencoded.append("password", password);
-//   urlencoded.append(
-//     "avatarPicture",
-//     "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
-//   );
-
-//   const requestOptions = {
-//     method: "POST",
-//     headers: myHeaders,
-//     body: urlencoded,
-//     redirect: "follow",
-//   };
-//   try {
-//     const response = await fetch(
-//       `${server}/api/users/signup`,
-//       // "http://localhost:5000/api/users/signup",
-//       requestOptions
-//     );
-
-//     const result = await response.json();
-//     console.log("result>>", result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };

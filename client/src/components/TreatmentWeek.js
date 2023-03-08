@@ -1,24 +1,18 @@
 import React from "react";
 import {
-  Box,
   Heading,
   Text,
   Button,
-  Flex,
-  HStack,
-  Icon,
   Card,
   Image,
   Stack,
   CardBody,
   CardFooter,
-  Spacer,
 } from "@chakra-ui/react";
 
 import { NavLink } from "react-router-dom";
 
 function TreatmentWeek({ treatmentWeek }) {
-  // console.log("treatmentWeek.week", treatmentWeek.exercisesImagesMain[0]);
   return (
     <Card
       mb="8"

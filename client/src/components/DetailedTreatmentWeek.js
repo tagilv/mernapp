@@ -1,19 +1,6 @@
 import React from "react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import {
-  Flex,
-  Grid,
-  GridItem,
-  Image,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-
-import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -58,7 +45,6 @@ function DetailedTreatmentWeek({ weekDetails }) {
                 variant="outline"
                 as="section"
                 bg="ofwhite"
-                // maxW={{ base: "90%", md: "85%", lg: "80%" }}
               >
                 <div>
                   <Accordion allowMultiple>
