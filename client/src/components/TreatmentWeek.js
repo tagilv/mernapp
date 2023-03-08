@@ -30,7 +30,7 @@ function TreatmentWeek({ treatmentWeek }) {
       />
 
       <Stack>
-        <CardBody w="100%">
+        <CardBody w="80%">
           <Heading size="md"> Week {treatmentWeek.week}</Heading>
 
           <Text py="2">{treatmentWeek.weekFocus}</Text>
