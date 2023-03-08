@@ -13,7 +13,7 @@ import passportConfig from "./config/passport.js";
 import commentModel from "./model/commentsModel.js";
 
 dotenv.config();
-// Creates express app and stores in app constant:
+
 const app = express();
 
 // Listen for requests:
@@ -82,6 +82,3 @@ const mongoDBConnection = async () => {
   loadRoutes();
   startServer();
 })();
-
-// Need to add () / call at the end to have it auto invoke.
-// Note: Now the fucntion names are not floating around in the global scope anymore

@@ -11,8 +11,6 @@ import { check, body, validationResult } from "express-validator";
 import jwtAuth from "../middlewares/jwtAuth.js";
 const router = express.Router();
 
-// If upload.single("image") is succesfull the thrird fucntion/callback (the imageUpload in the controller runs)
-
 // UPLOAD IMAGE
 router.post("/uploadimage", upload.single("image"), imageUpload);
 
@@ -35,7 +33,7 @@ router.get("/profile", jwtAuth, getProfile);
 
 // EDIT EXISTING USER
 
-// Need to put jwtAuth middlewear to get information about the user
+// Adding jwtAuth middlewear to get information about the user
 router.post("/update", jwtAuth, updateProfile);
 
 export default router;

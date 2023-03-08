@@ -30,7 +30,7 @@ function TreatmentWeek({ treatmentWeek }) {
       />
 
       <Stack>
-        <CardBody>
+        <CardBody w="100%">
           <Heading size="md"> Week {treatmentWeek.week}</Heading>
 
           <Text py="2">{treatmentWeek.weekFocus}</Text>
@@ -41,7 +41,7 @@ function TreatmentWeek({ treatmentWeek }) {
               to={`${treatmentWeek.week}`}
               state={{ data: treatmentWeek }}
             >
-              To the exercises >
+              To the exercises
             </NavLink>
           </Button>
         </CardFooter>

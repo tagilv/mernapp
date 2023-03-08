@@ -9,7 +9,7 @@ const upload = multer({
       cb(new Error("file not supported"), false);
       return;
     }
-    // To accept the file pass `true`, like so:
+    // To accept the file pass `true`
     cb(null, true);
   },
 });
