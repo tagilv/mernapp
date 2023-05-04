@@ -7,16 +7,9 @@ import getToken from "../utils/getToken.js";
 function ProtectedRoute({ children }) {
   const token = getToken();
 
-  console.log("token", token);
-
   const { user, isLoading } = useContext(AuthContext);
 
-  console.log("user", user);
-  console.log("isLoading", isLoading);
-
   const isAuthenticated = token ? (user ? true : false) : false;
-
-  console.log("isAuthenticated", isAuthenticated);
 
   return (
     <>
