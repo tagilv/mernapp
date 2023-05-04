@@ -81,3 +81,28 @@ const mongoDBConnection = async () => {
   loadRoutes();
   startServer();
 })();
+
+// Backup
+// const corsOptions = {
+//   origin:
+//     process.env.NODE_ENV === "development"
+//       ? "http://localhost:3000"
+//       : "https://ryggskolan.vercel.app",
+//   credentials: true,
+//   methods: ["GET", "PUT", "POST", "DELETE"],
+// };
+
+// const addMiddleWares = () => {
+//   app.use(express.json());
+//   app.use(
+//     express.urlencoded({
+//       extended: true,
+//     })
+//   );
+
+//   app.use(cors(corsOptions));
+
+//   cloudinaryConfig();
+//   app.use(passport.initialize());
+//   passportConfig(passport);
+// };

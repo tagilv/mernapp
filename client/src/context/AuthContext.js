@@ -115,6 +115,7 @@ export const AuthContextProvider = ({ children }) => {
       }
     } else {
       console.log("You need to log in");
+      setIsLoading(false);
     }
   };
 
